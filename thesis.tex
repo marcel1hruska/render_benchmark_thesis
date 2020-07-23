@@ -58,6 +58,7 @@
 \usepackage{subcaption}
 \usepackage{marginnote}
 \usepackage{hyperref}
+\usepackage{cleveref}
 
 %%% Basic information on the thesis
 
@@ -103,9 +104,11 @@ features, such as the list of BRDF and BSSDF models which are supported in a giv
 whether computations are performed in colour space or in spectral form, to whether features such polarisation or
 fluorescence are being supported. Although there are obvious similarities between systems, there is no standardised
 implementation of any of these features, and their computation might vary in terms of accuracy.
+
 Currently, whenever a researcher works on any aspect of appearance computation, they demonstrate their findings
 on their own set of test scenes. These scenes might not necessarily cover all test scenarios, and any possible
 inaccuracies might not be exposed properly.
+
 So there is a need for an appearance test suite that would assess the correctness of such computations. The goal of
 this thesis is to introduce such a set of scenes that can be used to methodically test rendering algorithms based on
 their appearance reproduction capabilities. The test scenes are created in such a manner that they examine the

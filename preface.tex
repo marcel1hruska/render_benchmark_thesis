@@ -1,9 +1,31 @@
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
+Common natural phenomena such as water reflections have always been one of the major topics discussed in the scientific circles. In the modern era of computers, many of these phenomena have already been explained and properly described by physical models. On of the ultimate interests of the computer graphics is to replicate these sensations, creating realistic images that would be indistinguishable from a photograph.
+
+Despite the fact that the publications discussing the rendering process were released mostly in the second half of the 19th century~\cite{kajiya1986rendering}\cite{nicodemus1965directional}, it is only now that we are capable of computing certain aspects of the natural light. Mostly thanks to the more powerful hardware, correctly simulating the light transport while evaluating non-trivial physical models can be done in the matter of minutes instead of days.
+
+As the interest in the physical realism rises also in the commercial circles such as movie industries, there is a need for more advanced light transport simulations which would bring the opportunities to create more advanced phenomena, genuine to their physical models rather than hacks and approximations.
+
+However, as the newly-developed techniques are still being largely discussed, various rendering systems contain custom, sometimes even distinct, implementations. In addition to the light transport techniques used by the specific system, there are many other distinguishing key features, such as material models or the internal light representation. Even though large parts of the rendering systems present obvious similarities, there is no standardized implementation of any of these features, their computations vary in terms of accuracy.
+
+These dissimilarities cause that there is no unified evaluation process that would assess the correctness of a specific technique or the whole rendering system. In fact, whenever an improved or a completely new technique is introduced, the creators present their results on their own set of scenes. Even unvoluntarily, these scenes might not properly exercise the techniques, possibly leaving some inaccuracies unexposed. Therefore, there is a need for a standardized way to test the rendering systems and their features.
+
 \section*{Goals}
+
+The main goal of this thesis is to introduce a set of scenes that methodically test various rendering systems based on their appearance reproduction capabilities. These scenes are specifically designed to expose potential differences between the computation of the specific phenomenon and it's defined behavior in the nature. While it is possible to test the light transport simulations, we focus on the specific appearance phenomena that are being developed and discussed to this date such as fluorescence, dispersion or polarization. Most of the evaluated phenomena absolutely need the light to be internally represented in the spectral domain so that we might simulate their looks accordingly to their physical descriptions.
+
+For the user's convenience, we wrap the test scenes in the automated workflow and we provide the reference images that we consider to be the ground truth.
 
 \section*{Thesis organization}
 
-This thesis is structured as follows: \autoref{chap:render} introduces the reader to the color science and the rendering process. It explains the fundamental basics that are a necessity to comprehend the more advanced computational models and defines the terminology that is widely used throughout the thesis. In case the reader is already familiar with the computer graphics field, he can skip this chapter.
+This thesis is structured as follows: 
+
+\Cref{chap:render} introduces the reader to the color science and the computer graphics. It explains the fundamental basics of the rendering process that are a necessity to comprehend the more advanced computational models. It also defines the terminology that is widely used throughout the thesis. In case the reader is already familiar with the computer graphics field, he can skip this chapter. 
+
+\Cref{chap:appearance} continues in discussing the specific appearance phenomena that are the main interest of this thesis, providing in-depth explanations as well as exact implementations for each of them. 
+
+\Cref{chap:benchmark} shows the actual results of the thesis --- the evaluation suite. We describe the framework and the justifications behind its design, the test scenes that exercise the phenomena from \autoref{chap:appearance} and demonstrates the possible use case scenarios for the benchmark. 
+
+A the end of the thesis, we provide a user guide which clarifies how to actually run and use the benchmark.
 
