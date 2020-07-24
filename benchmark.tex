@@ -31,7 +31,7 @@ First of all, we take a look into the framework of the benchmark suite and its s
 An automated workflow simplifies the benchmark process and ensures that the user is working with the benchmark correctly. The suite consists of several files to accommodate the principle of modularity:
 
 \begin{description}
-	\item[src/arg\_parser.py] Parses the CLI arguments and the \texttt{settings.json} file and fills it's variables accordingly.
+	\item[src/arg\_parser.py] Parses the CLI arguments and the \texttt{settings.json} file and fills its variables accordingly.
 	\item[src/constants.py] Simply contains the constants that are used in other scripts.
 	\item[src/normalizer.py] Normalizes the names of the resulting images after the benchmark ends, as each renderer might have unique naming conventions. It is used only in corner cases.
 	\item[src/visualizer.py] Runs a HTTP server which is required by jeri.io to upload EXR images and opens the website with the results.
@@ -130,7 +130,7 @@ Anyone can contribute to the project via pull request as it is open source.
 
 \subsection{ART}
 
-Advanced Rendering Toolking, or shortly ART, is physically-based, research oriented rendering framework that has been developed by the Computer Graphics Group on Charles University in Prague, Faculty of Mathematics and Physics. In the past, there have been important contributions by people at the Institute of Computer Graphics in Vienna. However, as ART is currently at version 2.0.3, most of their work has not been ported from versions 0.x/1.x. ART can be download/cloned from \url{git://cgg.mff.cuni.cz/ART.git} and this section is largely based on it's documentation~\cite{artDoc}.
+Advanced Rendering Toolking, or shortly ART, is physically-based, research oriented rendering framework that has been developed by the Computer Graphics Group on Charles University in Prague, Faculty of Mathematics and Physics. In the past, there have been important contributions by people at the Institute of Computer Graphics in Vienna. However, as ART is currently at version 2.0.3, most of their work has not been ported from versions 0.x/1.x. ART can be download/cloned from \url{git://cgg.mff.cuni.cz/ART.git} and this section is largely based on its documentation~\cite{artDoc}.
 
 ART is written in Objective-C and therefore compilable on the majority of the modern operating systems. The scenes are written in a custom language that supports procedural modeling of the scene objects, such as loops and conditions. Also, the immediate results of the rendering process are custom spectral images which contain a lot more information about the wavelengths and the polarization states than standard EXRs. These, however, are not displayable and need to be tonemapped (included in the project) afterwards.
 
@@ -172,7 +172,7 @@ The first four are done accordingly to the measured data shown in \citet{walter2
 	\label{fig:ggx_copper}
 \end{figure}
 
-While the previous four scenes tested rough conducting surfaces, the fifth scene demonstrates a rough dielectric --- it consists of a single equally rough dielectric sphere under an area light illumination. We decided to go for a volumetric object instead of the plane for the dielectrics because a dielectric is at least partially transparent and the colors of a plane would predominantly merge with the background. A sphere, however, has it's own volume, forming a thick layer in front of the background. Furthermore, testing the very same cases for the dielectrics does not make much sense as we are not really testing the material but the microfacet distribution. A sphere also provides various illumination angles where we can potentially spot the inconsistencies between them. This scene converges pretty slowly for such simple geometry. It is due to the fact that the original GGX needed a quite larger number of samples (256 in our case) to render a plausible result. An improvement has been introduced~\cite{heitz2018sampling} that does not change the distribution but greatly decreases variance. As the article~\cite{walter2007microfacet} mostly compares their GGX approach to the Beckmann distribution, we demonstrate our scene rendered for both distributions in \autoref{fig:ggx_glass}
+While the previous four scenes tested rough conducting surfaces, the fifth scene demonstrates a rough dielectric --- it consists of a single equally rough dielectric sphere under an area light illumination. We decided to go for a volumetric object instead of the plane for the dielectrics because a dielectric is at least partially transparent and the colors of a plane would predominantly merge with the background. A sphere, however, has its own volume, forming a thick layer in front of the background. Furthermore, testing the very same cases for the dielectrics does not make much sense as we are not really testing the material but the microfacet distribution. A sphere also provides various illumination angles where we can potentially spot the inconsistencies between them. This scene converges pretty slowly for such simple geometry. It is due to the fact that the original GGX needed a quite larger number of samples (256 in our case) to render a plausible result. An improvement has been introduced~\cite{heitz2018sampling} that does not change the distribution but greatly decreases variance. As the article~\cite{walter2007microfacet} mostly compares their GGX approach to the Beckmann distribution, we demonstrate our scene rendered for both distributions in \autoref{fig:ggx_glass}
 
 \begin{figure}[h]
 	\begin{tabular}{cc}
@@ -180,7 +180,7 @@ While the previous four scenes tested rough conducting surfaces, the fifth scene
 		&
 		\includegraphics[width=.45\linewidth]{img/beckmann_glass.png}
 	\end{tabular}
-	\caption{The test scene consisting of a dielectric sphere with GGX distribution (left) compared to it's Beckmann equivalent (right)}
+	\caption{The test scene consisting of a dielectric sphere with GGX distribution (left) compared to its Beckmann equivalent (right)}
 	\label{fig:ggx_glass}
 \end{figure}
 
@@ -188,7 +188,7 @@ While the previous four scenes tested rough conducting surfaces, the fifth scene
 
 As the direct representation of the spectral colors is not possible on our screens, we need to make sure that the final image contains colors that actually correspond to the measured data. Distinct renderers may internally represent their color values in a very different manner which might effect the ultimate color that we see.
 
-For these purposes, we use a well-defined set of colors introduced by \citet{mccamy1976color} called \emph{Macbeth chart} or simply \emph{Macbeth colors}. It's basic variant consists of 24 color patches divided in a 4x6 grid, each representing a color that can be normally found in nature --- human skin, flowers, greyscale range, etc. It is primarly used for color calibration therefore it is designed to be stable and invariant under different lighting conditions.
+For these purposes, we use a well-defined set of colors introduced by \citet{mccamy1976color} called \emph{Macbeth chart} or simply \emph{Macbeth colors}. Its basic variant consists of 24 color patches divided in a 4x6 grid, each representing a color that can be normally found in nature --- human skin, flowers, greyscale range, etc. It is primarly used for color calibration therefore it is designed to be stable and invariant under different lighting conditions.
 
 We introduce two scenes that evaluate the correctness of the spectral colors --- both contain a Macbeth chart illuminated by two different standard CIE illuminants, D50 and D65~\cite{cieIlluminants}. As both illuminants and Macbeth colors have exact definitions, they are easily integrated into any renderer that supports spectral color representation. Another advantage is that we know their corresponding RGB values so the results can be easily checked against them.
 
@@ -222,7 +222,7 @@ The first two scenes use the Brewster's angle (explained in \autoref{sec:polariz
 	\label{fig:polar_planes}
 \end{figure}
 
-The third scene is a lot more specific as it heavily depends on the renderer to be capable of representing the polarization via Stokes vector and visualizing them. This scene contains two smaller dielectric spheres which are in front of a larger smooth conducting sphere illuminated by a constant daylight. The two dielectric spheres create a lot of light polarization which can then be seen on their reflections on the conducting sphere behind them. Note that to ensure the physical plausability, the scenes are monochrome, tracking only the 550nm wavelength. In ART, it is possible to extract the single wavelength information image from its custom spectral image format. In Mitsuba2, we used a workaround by specifying only the 550nm values of all colors inside the scene (light and floor) and by running the rendering process in the monochrome mode. Then, both Mitsuba2 and ART output their results as four distinct images, each representing a different element of the Stokes vector (the complication with the compatibility of the outputs and it's solution is explained in \autoref{sec:jeri}). All four images are shown in \autoref{fig:polar_spheres}. Pay attention to the fourth image, which demonstrates that a circular polarization also happened during one of the reflections.
+The third scene is a lot more specific as it heavily depends on the renderer to be capable of representing the polarization via Stokes vector and visualizing them. This scene contains two smaller dielectric spheres which are in front of a larger smooth conducting sphere illuminated by a constant daylight. The two dielectric spheres create a lot of light polarization which can then be seen on their reflections on the conducting sphere behind them. Note that to ensure the physical plausability, the scenes are monochrome, tracking only the 550nm wavelength. In ART, it is possible to extract the single wavelength information image from its custom spectral image format. In Mitsuba2, we used a workaround by specifying only the 550nm values of all colors inside the scene (light and floor) and by running the rendering process in the monochrome mode. Then, both Mitsuba2 and ART output their results as four distinct images, each representing a different element of the Stokes vector (the complication with the compatibility of the outputs and its solution is explained in \autoref{sec:jeri}). All four images are shown in \autoref{fig:polar_spheres}. Pay attention to the fourth image, which demonstrates that a circular polarization also happened during one of the reflections.
 
 \begin{figure}[h]
 	\begin{tabular}{cc}
@@ -239,7 +239,7 @@ The third scene is a lot more specific as it heavily depends on the renderer to 
 
 \subsection{Fluorescence}
 
-Fluorescence is one of the four phenomena that are possible thanks to the spectral rendering. As it is not seen on a daily basis, it's implementation has been purposely avoided in the vast majority of the renderers. However, as the physical realism begins to be a must-have in the commercial world, it's presence is becoming a necessity.
+Fluorescence is one of the four phenomena that are possible thanks to the spectral rendering. As it is not seen on a daily basis, its implementation has been purposely avoided in the vast majority of the renderers. However, as the physical realism begins to be a must-have in the commercial world, its presence is becoming a necessity.
 
 We provide four different test scenes that exercice the fluorescent materials and illuminants and their properties accordingly to their natural behavior. In this case, only ART scenes are provided as Mitsuba2 does not support the feature. 
 

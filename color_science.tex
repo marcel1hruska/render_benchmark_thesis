@@ -222,7 +222,7 @@ f_r(\omega_i,\omega_o)=\frac{dL_o(\omega_o)}{L_i(\omega_i)cos\theta_i d\omega_i}
 \end{equation}
 
 This function is given the incoming vector $\omega_i$, the outgoing vector $\omega_o$ and it states how much radiance is reflected from the direction $\omega_i$ ($L_i(\omega_i)$) to the direction $\omega_o$ ($L_o(\omega_o)$) for the specific material.
-An image interpretation of the function is in \autoref{fig:brdf}. As it is a distribution function, we can also reformulate it's meaning as a probability density that a defined amount of light energy gets reflected from $\omega_i$ to $\omega_o$.
+An image interpretation of the function is in \autoref{fig:brdf}. As it is a distribution function, we can also reformulate its meaning as a probability density that a defined amount of light energy gets reflected from $\omega_i$ to $\omega_o$.
 
 \begin{figure}[h]
 	\centering
@@ -328,7 +328,7 @@ There exist other methods that are used to approximate integrals such as determi
 \subsection{Light transport algorithms}
 
 \subsubsection{Path tracing}
-Over the years, a large number of various light transport algorithms and their variations have been developed, where each has it's own benefits. The one that we will mention the most in this thesis is called the \emph{path tracing}. It's core idea is simple:
+Over the years, a large number of various light transport algorithms and their variations have been developed, where each has its own benefits. The one that we will mention the most in this thesis is called the \emph{path tracing}. Its core idea is simple:
 
 \renewcommand{\labelenumii}{\theenumii}
 \renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
@@ -347,16 +347,16 @@ Over the years, a large number of various light transport algorithms and their v
 			\end{description}
 		\item In case the termination was not successful, bounce -- shoot a secondary ray $r$ fromthe  point $x$ in the direction $\omega$ and continue from step 2.
 	\end{enumerate}
-	\item If $r$ hits an emitting object (light source), add it's emission $L_e$ to the final color of the pixel
+	\item If $r$ hits an emitting object (light source), add its emission $L_e$ to the final color of the pixel
 	\item If no scene geometry is hit, terminate the algorithm and add the color of the surrounding light (if there is any).
 \end{enumerate}
 
-The bouncing of the light in the scene nicely correlates with the recursive nature of the rendering equation. Even though the path tracing is a slow algorithm (e.g. not suitable for real-time rendering in games), it's variations can be extremely accurate, even indistinguishable from a real photograph. 
+The bouncing of the light in the scene nicely correlates with the recursive nature of the rendering equation. Even though the path tracing is a slow algorithm (e.g. not suitable for real-time rendering in games), its variations can be extremely accurate, even indistinguishable from a real photograph. 
 
 
 \paragraph{MIS}
 
-In the algorithm described above, the direct illumination computation of each scene intersection is dependent only on the BRDF of the intersected surface and consequent walk to the light source. However, such scenario that the light source is hit at the end of every walk is greatly dependent on the number of samples and the maximum allowed depth of the recursion. Consequently, this creates variance which can be easily improved the integration of the \emph{multiple importance sampling} (MIS). Generally, it involves a combination of multiple sampling techniques but in our case it is a combination of the BRDF proportional sampling and the light source sampling --- in each step of the path tracing, every light source that is visible from the intersected point contributes to it's value. Both sampling methods are, of course, weighted to avoid an over-illumination. 
+In the algorithm described above, the direct illumination computation of each scene intersection is dependent only on the BRDF of the intersected surface and consequent walk to the light source. However, such scenario that the light source is hit at the end of every walk is greatly dependent on the number of samples and the maximum allowed depth of the recursion. Consequently, this creates variance which can be easily improved the integration of the \emph{multiple importance sampling} (MIS). Generally, it involves a combination of multiple sampling techniques but in our case it is a combination of the BRDF proportional sampling and the light source sampling --- in each step of the path tracing, every light source that is visible from the intersected point contributes to its value. Both sampling methods are, of course, weighted to avoid an over-illumination. 
 
 \paragraph{Volumes}
 

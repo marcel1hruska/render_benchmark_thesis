@@ -73,7 +73,7 @@ As these microfacet computations are local, we need to consider the possibility 
 	\item[Interrecflection] Bounces between the microfacets
 \end{description}
 
-Many variations to the Cook-Torrance model have been developed, such as it's predecessor Torrance-Sparrow~\cite{Torrance1967TheoryFO} or Oren-Nayar~\cite{oren1994generalization} for diffuse reflectance.
+Many variations to the Cook-Torrance model have been developed, such as its predecessor Torrance-Sparrow~\cite{Torrance1967TheoryFO} or Oren-Nayar~\cite{oren1994generalization} for diffuse reflectance.
 
 In this thesis, we focus on the distribution functions of the microfacets as they are ultimately the deciding factor of the rough surface look. A nice comparison of the three commonly used microfacet distributions --- \emph{Phong}, \emph{Beckmann} and \emph{GGX} -- along with their distribution functions, masking functions and sampling equations can be found in the \citet{walter2007microfacet}. As the exact formulations of those three methods are not a necessity for this thesis, we provide only a brief overview for each of them and an illustrative comparison between the GGX and the Beckmann of the same roughness in 
 \autoref{fig:ggx_beckmann}.
@@ -93,7 +93,7 @@ The GGX distribution~\cite{walter2007microfacet} was introduced as an improvemen
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.8\linewidth]{img/ggx_beckmann.png}
-	\caption{A rough aluminium sphere with the GGX distribution (left) compared to it's Beckmann equivalent (right) rendered  in Mitsuba2}
+	\caption{A rough aluminium sphere with the GGX distribution (left) compared to its Beckmann equivalent (right) rendered  in Mitsuba2}
 	\label{fig:ggx_beckmann}
 \end{figure}
 
@@ -109,7 +109,7 @@ Similarly to all kinds of the electromagnetic radiation, the light also propagat
 	\label{fig:oscillation}
 \end{figure}
 
-In the light's natural state (sun, common light bulb), the directions of it's oscillation are arbitrary --- such light is called \emph{unpolarized}. The \emph{polarized} light maintains a restricted direction of oscillation and it is a result of a \emph{polarization} process. Note that the light is often only partially polarized as the restriction of the direction does not have to be perfect and allows some variations.
+In the light's natural state (sun, common light bulb), the directions of its oscillation are arbitrary --- such light is called \emph{unpolarized}. The \emph{polarized} light maintains a restricted direction of oscillation and it is a result of a \emph{polarization} process. Note that the light is often only partially polarized as the restriction of the direction does not have to be perfect and allows some variations.
 
 Depending on the shape of their electric fields, we distinguish three types of polarization which are demonstrated in \autoref{fig:polar_types}.
 
@@ -138,7 +138,7 @@ In this case, we distinguish two types of the linearly polarized light depending
 \end{figure}
 
 
-The principle of Brewster's angle is used in a material called the \emph{polarizer}. As the name suggests, it polarizes the light, restricting it's direction of oscillation accordingly to the specifics of the polarizer. If the light that passes through the polarizer is of the opposite (perpendicular) direction to the polarizer's transmission orientation, it won't let it through and no light is visible. \autoref{fig:polarizer} illustrates the effects of a polarizer.
+The principle of Brewster's angle is used in a material called the \emph{polarizer}. As the name suggests, it polarizes the light, restricting its direction of oscillation accordingly to the specifics of the polarizer. If the light that passes through the polarizer is of the opposite (perpendicular) direction to the polarizer's transmission orientation, it won't let it through and no light is visible. \autoref{fig:polarizer} illustrates the effects of a polarizer.
 
 \begin{figure}[h]
 	\centering
