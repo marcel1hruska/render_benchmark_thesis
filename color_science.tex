@@ -406,7 +406,7 @@ So far, we've considered the colors to be internally represented by a tristimulu
 
 Therefore, a new approach to the rendering has been introduced that internally represents the colors as a spectrum distribution function instead of a tristimulus color space --- the \emph{spectral rendering}. The core idea is to track and sample several wavelengths at once for each step of the path tracing and to perform the integration over all of them. We also generalize the BSDF to account for the wavelengths: $f_r(\lambda,\omega_i,\omega_o)$.
 
-Most of the phenomena evaluated in this thesis are a direct consequence of the lights nature as an electromagnetic radiation, hence the primary focus is placed on the spectral rendering.
+Most of the phenomena evaluated in this thesis are a direct consequence of the light's nature as an electromagnetic radiation, hence the primary focus is placed on the spectral rendering.
 The following sections are largely based on a publication by \citet{wilkie2002tone}.
 
 \subsection{Color representation}
