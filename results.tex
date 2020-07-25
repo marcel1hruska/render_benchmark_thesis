@@ -1,9 +1,13 @@
 \chapter{Results}
 \label{chap:results}
 
-This chapter overviews the results of the evaluation of ART renderer via direct comparison with Mitsuba2. As we've noted before, the fluorescence is exclusive for ART, iridescence for Mitsuba2 and therefore we are not evaluating these as there is no other renderer to compare them with.
+This chapter overviews the results of the evaluation of ART via direct comparison with Mitsuba2. As we've noted before, the fluorescence is exclusive to ART, iridescence to Mitsuba2 and therefore we are not evaluating these as there is no other renderer to compare them with.
+
+Unfortunately, we do not provide any measures that would asses the accuracy of the techniques in an absolute manner, such as accuracy percentage or correctness threshold. Such metric would require an extensive research in the image validation which is out of scope of this thesis. For anyone interested, the verification of the rendering algorithms is discussed in the article by \citet{ulbricht2006verification}.
 
 \section{Error maps}
+
+The only assessment we provide is via difference images. Even though these do not exactly state whether the computation is correct or not, they might help to expose some inaccuracies.
 
 The difference images shown in the following sections are created by L1 and SSIM error maps, both integrated in the JERI framework and consequently in our benchmark. 
 
@@ -20,9 +24,9 @@ Generally, it is largely used in the statistical optimizations to find a functio
 In our case, the error map is actually an image that shows the direct differences between the color values for each pixel. This is considered by us to be the absolute basic as it might expose the color inaccuracies that are barely visible to the naked eye.
 
 \subsection{SSIM}
-\emph{Structural similarity index measure} (SSIM) is a lot more advanced method, specifically developed by \citet{wang2004image} to measure the loss of data between a reference image and its processed (usually compressed) equivalent. As it is a perceptual metric comparing two images capturing the same scene, we include this in the benchmark as it correlates with our needs.
+\emph{Structural similarity index measure} (SSIM) is a lot more advanced method, specifically developed by \citet{wang2004image} to measure the loss of data between a reference image and its processed (usually compressed) equivalent. As it is a perceptual metric comparing two images capturing the same scene, we include it in our benchmark.
 
-However, this technique cannot be considered as an absolute metric of correctness as we often do not let the images to converge completely because of the performance reasons. It is only useful to look at the artifacts exposed by SSIM or to manually increase the number of samples for each scene. 
+However, this technique cannot be considered as an absolute metric of correctness either as we often do not let the images to converge completely because of the performance reasons. It is only useful to look at the artifacts exposed by SSIM or to manually increase the number of samples for each scene. 
 
 \section{GGX}
 
@@ -101,7 +105,7 @@ The spectral accuracy is significantly harder to quantify and measure as there a
 		&
 		\begin{subfigure}
 			{0.4\textwidth}\centering\includegraphics[width=\linewidth]{img/macbeth_chart_D65_ART.png}
-			\caption{ART - our implementation}
+			\caption{ART}
 		\end{subfigure} \\
 		\begin{subfigure}
 			{0.4\textwidth}\centering\includegraphics[width=\linewidth]{img/macbeth_chart_D65_SSIM.png}
@@ -128,7 +132,7 @@ The spectral accuracy is significantly harder to quantify and measure as there a
 		&
 		\begin{subfigure}
 			{0.4\textwidth}\centering\includegraphics[width=\linewidth]{img/macbeth_chart_D50_ART.png}
-			\caption{ART - our implementation}
+			\caption{ART}
 		\end{subfigure} \\
 		\begin{subfigure}
 			{0.4\textwidth}\centering\includegraphics[width=\linewidth]{img/macbeth_chart_D50_SSIM.png}
@@ -144,11 +148,13 @@ The spectral accuracy is significantly harder to quantify and measure as there a
 	\label{fig:compare_macbeth_d50}
 \end{figure}
 
-On the first sight, the two images are extremely similar --- the spectral definitions for the Macbeth colors and the illuminants are the very same for both renderers. This is also proved by the L1 comparisons which shows almost no difference. But as we look on the SSIM, we see slight variations in different color patches. The Macbeth blue and black are accurate but for some reason the others, especially the yellow and yellow-green are slightly more saturated in the reference images. This might indicate a potential flow in the stochastic approach of spectral sampling in Mitsuba2 but as the differences are barely there, we do not consider the results to be incorrect. Note that the two SSIM images are almost identical which shows that the relative comparison under the same lighting conditions matches.  
+On the first sight, the two images are extremely similar --- the spectral definitions for the Macbeth colors and the illuminants are the very same for both renderers which is backed by the L1 comparisons. But as we look on the SSIM, there are slight variations in different color patches. The Macbeth blue and black are accurate but for some reason the others, especially yellow and yellow-green are slightly more saturated in the reference images. This might indicate a potential flow in the stochastic approach of spectral sampling in Mitsuba2 but as the differences are barely there, we do not consider the results to be incorrect. Note that the two SSIM images are almost identical which shows that the relative comparison under the same lighting conditions matches.  
 
 \section{Polarization}
 
-Unfortunately for us, the comparison between the Stokes vector outputs heavily depend on the viewer and the representation of the specific renderer. To make the matters as simple as possible, the scene is monochrome and tracks a single-wavelength light only. We show the comparisons of the second Stokes vector element --- the horizontal/vertical polarization --- in \autoref{fig:compare_polar_s1} and the comparisons of the scene with the visible polarized reflection in \autoref{fig:compare_polar_angle}.
+Unfortunately for us, it is quite complicated to directly compare the outputs of the Stokes vectors as the final format heavily depends on the renderer. To make the matters as simple as possible, the scene is monochrome and tracks a single-wavelength light only. We compare the visualization of the horizontal/vertical polarization stored in the Stokes vector in \autoref{fig:compare_polar_s1}. 
+
+The second discussed scene is shown in \autoref{fig:compare_polar_angle} and demonstrates the polarizing plane scene with a visible reflection.
 
 \renewcommand\thesubfigure{\arabic{subfigure}}
 \begin{figure}[h]
@@ -161,7 +167,7 @@ Unfortunately for us, the comparison between the Stokes vector outputs heavily d
 		&
 		\begin{subfigure}
 			{0.4\textwidth}\centering\includegraphics[width=\linewidth]{img/polarizing_spheres.s1_ART.png}
-			\caption{ART - our implementation}
+			\caption{ART}
 		\end{subfigure} \\
 		\begin{subfigure}
 			{0.4\textwidth}\centering\includegraphics[width=\linewidth]{img/polarizing_spheres.s1_SSIM.png}
@@ -188,7 +194,7 @@ Unfortunately for us, the comparison between the Stokes vector outputs heavily d
 		&
 		\begin{subfigure}
 			{0.4\textwidth}\centering\includegraphics[width=\linewidth]{img/polarizing_plane_90_ART.png}
-			\caption{ART - our implementation}
+			\caption{ART}
 		\end{subfigure} \\
 		\begin{subfigure}
 			{0.4\textwidth}\centering\includegraphics[width=\linewidth]{img/polarizing_plane_90_SSIM.png}
@@ -204,6 +210,6 @@ Unfortunately for us, the comparison between the Stokes vector outputs heavily d
 	\label{fig:compare_polar_angle}
 \end{figure}
 
-The polarizing plane scene might seem to be more attenuated in case of ART, especially under the plane. However, this does not concern us as the purpose of the scene is to expose the behavior of the unpolarized light upon the interaction with a surface under a Brewster's angle rather than the material properties and the transmissions through them. Neither of the difference images show an obvious inconsistency between the images but both are suggesting that the reflection of the light on the plane is at least partially off.
+The polarizing plane scene might seem to be more attenuated in case of ART, especially under the plane. However, this does not concern us as the purpose of the scene is to expose the behavior of the unpolarized light upon the interaction with a surface under a Brewster's angle rather than the material's transmission properties. Neither of the difference images show obvious inconsistencies but both are suggesting that the reflection of the light on the plane is at least partially off.
 
-With the simplifications of the polarizing sphere scene we've mentioned above, we can see that the results are almost identical. But, there is  a visible difference in the vertical polarization on the spheres (properly exposed by SSIM) and we could conclude that there are some errors as the light is not actually unpolarized in case of Mitsuba2. However, bear in mind that the images we compare are not a direct results of the rendering process but rather a byproduct of a specific structure inside it.
+After the simplifications done to the polarizing spheres scene, we can see that the results are almost identical. But, there is  a visible difference in the vertical polarization on the spheres (properly exposed by SSIM) and we could conclude that Mitsuba2 does not track completely unpolarized light properly. However, bear in mind that the images we compare are not airect results of the rendering process but rather a byproduct of a specific structure inside it so it might simply be a color output inconsistency rather than a polarization tracking flaw.

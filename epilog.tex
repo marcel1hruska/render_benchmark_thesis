@@ -1,15 +1,15 @@
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
 
-Both ART and Mitsuba2 display several unique properties and implementation details such us custom spectral sampling techniques. Despite that, we've shown that it is possible to methodically test the appearance computations of the distinct renderers. As the models behind each of the tested sensation is properly defined and we can describe their natural behavior, it is possible to expose some of the exact aspects of the computations (e.g Brewster's angle in polarization) and demonstrate their functionality.
+Both ART and Mitsuba2 display several unique properties and implementation details such us custom spectral sampling techniques. Despite that, we've shown that it is possible to methodically test the appearance computations of the distinct renderers. As the models behind each of the tested phenomenon is properly defined and we can also describe their natural behavior, it is possible to expose some of the exact aspects of their computations (e.g Brewster's angle in polarization) and to evaluate their functionality.
 
-Even though we do not provide an absolute metric that would confirm the correctness with a simple yes/no answer, the reference images along with the difference images provide enough information for a reasonably skilled user to asses the accuracy ratio by himself.
+The straightforward descriptions of the scenes, their basic geometry along with the in-depth documentation should be enough to comprehend their purposes in the evaluation process. As an addition, the benchmark contains code snippets, unified geometry and spectral values for various colors that are used in the scenes which should help a potential user to extend the benchmark or their own rendering systems coherently and correctly.
 
-Even though the benchmark is usable to test the specific phenomena, we are aware of its shortcomings and would like to mention them in future work. 
+Even though we do not include an absolute metric that would explicitly determine the correctness of individual computations, the reference images along with the difference images provide enough information for a reasonably skilled user to assess the accuracy by himself.
 
 \section{Future Work}
 
-There are several possible extensions that we consider interesting or useful but that were not essential for the purposes of this thesis so we purposely avoided them. Providing more time, these would be a fine asset to the benchmark, further extending its capabilities and effectiveness.
+Despite the various functionalities that the benchmark has, there are several possible extensions that we consider interesting or useful but that were not essential for the purposes of this thesis so we purposely avoided them. Providing more time, these would be a fine asset to the benchmark, further extending its capabilities and effectiveness.
 
 \begin{description}
 	\item[Enhanced results] Right now, the results visualizer consists of a very basic UI where the user may look at the images and interact with them. We would like to add several features, e.g. performance counter, comments explaining each scene, highlights of the scene, etc.

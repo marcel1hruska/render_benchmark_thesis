@@ -188,13 +188,9 @@ cd /render_benchmark
 python3 ./benchmark.py
 \end{lstlisting}
 
-As soon as the benchmark ends, the user may find the rendered EXR images in a folder named \texttt{outputs-yyymmdd-hhmmss} where the \texttt{yyymmdd-hhmmss} is substituted for the date and time when the command was issued.
-
-Then, a user may use a second script --- \texttt{visualize.py} that opens the website with the results of the benchmark, the reference images and their difference images. This script must also be run from without the root directory of the benchmark suite.
-
 The benchmark accepts several parameters:
 \begin{description}
-	\item[-{}-help (-h)] Only outputs the help message
+	\item[-{}-help (-h)] Prints the help message
 	\item[-{}-scene (-s) \textless scene\_name\textgreater] Test only the scene called scene\_name
 	\item[-{}-case (-c) \textless test\_case\_name\textgreater] Test only the test case called test\_case\_name
 	\item[-{}-renderer (-r) [ART/mitsuba2]] Specify the name of the renderer 
@@ -204,6 +200,16 @@ The benchmark accepts several parameters:
 \end{description}
 
 For the user's convenience, all of these options may be specified in the \texttt{settings.json} file but the ones issued in the CLI take higher priority and override them.
+
+As soon as the benchmark ends, the user may find the rendered EXR images in a folder named \texttt{outputs-yyymmdd-hhmmss} where the \texttt{yyymmdd-hhmmss} is substituted for the date and time when the command was issued.
+
+Then, a user may use a second script --- \texttt{visualize.py} that opens the website with the results of the benchmark, the reference images and their difference images. This script must also be run from without the root directory of the benchmark suite. It accepts only two parameters:
+
+\begin{description}
+	\item[-{}-help (-h)] Prints the help message
+	\item[-{}-outputs (-o) \textless output\_folder\_name\textgreater] Specify the name of the \texttt{outputs-yyymmdd-hhmmss} folder that is to be visualized. If omitted, the newest folder is picked.
+\end{description}
+
 
 \chapter{Attachments}
 
