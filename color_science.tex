@@ -413,7 +413,7 @@ The following sections are largely based on a publication by \citet{wilkie2002to
 
 If the spectral rendering is desired, some representation of the spectral distribution functions needs to be implemented. While several techniques are feasible, it is often a matter of a simple trade-off between the precision and the performance. For example, sampling wavelengths uniformly each 5nm would yield significantly more accurate results than sampling only four wavelengths in total. However, such approach might become unbearable in terms of speed and memory. Moreover, the spectral functions are usually quite smooth, therefore such dense sampling is mostly completely unnecessary. Some examples of these functions can be seen in \autoref{fig:spectral_color}.
 
-A typical approach is to sample at larger ranges (more than 10 nanometers) and use basis functions for the representation~\cite{peercy1993linear}. More approaches and their details are briefly explained in \citet{wilkie2002tone}.
+A typical approach is to sample at larger ranges (more than 10 nanometers) and use basis functions for the representation~\cite{peercy1993linear}. More approaches and their details are briefly explained by \citet{wilkie2002tone}.
 
 \begin{figure}[httpb]
 	\centering
@@ -447,12 +447,12 @@ They are explained in detail in \autoref{chap:appearance}.
 
 \subsection{Disadvantages}
 
-On the other side, the need to numerically integrate over multiple wavelengths introduces a problem of the chromatic noise. Also, even though the performance is not a key factor, it obviously worsens as well. 
+On the other side, the need to numerically integrate over multiple wavelengths introduces a problem of the chromatic noise. Fortunately, this has been effectively eliminated by the introduction of \emph{Hero Wavelength Spectral sampling}~\cite{wilkie2014hero}. Also, even though the performance is not a key factor, it obviously worsens as well. 
 
 Moreover, we are still unable to properly display spectral images on the current monitors. The only viable way is to store the distinct spectral bands as separate images. Clearly, it is quite inconvenient to have multiple results instead of one as it does not correlate with the images that we capture in reality. Therefore, the rendering needs to have a well-done spectrum to final RGB conversion as the final image is still being displayed on an RGB monitor. Fortunately, the conversion is well-defined and fairly simple to implement.
 
-Due to the fact that the RGB gamut is only a subset of the visible spectrum, the situation gets significantly more complicated for the reversed conversion. As there exist infinitely many spectra for one RGB value, several techniques were proposed to convert the tristimulus to the spectral domain --- commonly called the \emph{spectral upsampling}. For those who may be interested in the details of the current development to the spectral upsampling, refer to the article by \citet{jakob2019low} which proposes a solution that is capable of converting full sRGB gamut with zero error. 
+Due to the fact that the RGB gamut is only a subset of the visible spectrum, the situation gets significantly more complicated for the reversed conversion. As there exist infinitely many spectra for one RGB value, several techniques were proposed to convert the tristimulus to the spectral domain --- commonly called the \emph{spectral upsampling}. For those who may be interested in the details of the current development to the spectral upsampling, refer to the article by \citet{jakob2019low} which proposes a solution that is capable of converting full sRGB gamut with zero error.
+
+Obviously, it is also possible to simply map RGB values to their measured data. However, this requires a lot of manual work as the same "color" (reflective spectrum) might have to be measured for various lighting conditions and mapped accordingly.
 
 There exist several reasons to integrate the spectral upsampling, mainly because the spectral values are a lot harder to obtain and to use. You need a specific device (spectrometer) that would measure the color values under a specific light and then use regularly distributed samples from it as an input. Because of the reproducibility of the RGB color space and its legacy usage (lots of existing textures are already defined in RGB), it is a lot more convenient to input the values of textures as RGB values, convert them internally to the spectral domain and convert them back to the desired color space for the output image.
-
-

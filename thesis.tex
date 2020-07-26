@@ -179,9 +179,11 @@ manually verify that the reference images display proper results according to th
 \appendix
 \chapter{User Guide}
 
-The user may clone/download the benchmark from the github repository \url{https://github.com/marcel1hruska/render_benchmark} or he can find it in the attachments of thesis~\ref{sec:benchmark}. As the whole benchmark is written in Python3, there is no need to compile the project. Then, it is necessary to modify \texttt{settings.json} file in the root directory of the benchmark suite --- the user must specify the path to the renderer executable and the name of the renderer (currently, only \texttt{mitsuba2} and \texttt{ART} are viable options).
+The user may clone/download the benchmark from the github repository \url{https://github.com/marcel1hruska/render_benchmark} or he can find it in the attachments of thesis~\ref{sec:benchmark}. As the whole benchmark is written in Python3, there is no need to compile the project. 
 
-After that, the benchmark can be run with a simple invocation of the \texttt{benchmark.py} python file in the CLI. Be aware that the script must be invoked from within the root directory of the benchmark suite! The following commands will get you to the root directory and run the benchmark.
+Firstly, it is necessary to modify \texttt{settings.json} file in the root directory of the benchmark suite --- the user must specify the path to the renderer executable and the name of the renderer (currently, the only viable options are \texttt{mitsuba2} and \texttt{ART}).
+
+After that, the benchmark can be run with a simple invocation of the \\ \texttt{benchmark.py} python file. Note that the script must be invoked from within the root directory of the benchmark suite! For example, you can do so by issuing the following commands inside Ubuntu bash:
 
 \begin{lstlisting}
 cd /render_benchmark
@@ -199,21 +201,21 @@ The benchmark accepts several parameters:
 	\item[-{}-visualize (-v)] Visualize the outputs immediately after the benchmark ends
 \end{description}
 
-For the user's convenience, all of these options may be specified in the \texttt{settings.json} file but the ones issued in the CLI take higher priority and override them.
+For the user's convenience, all of these options may be specified in the \\ \texttt{settings.json} file but the ones issued in the CLI take higher priority and override them.
 
-As soon as the benchmark ends, the user may find the rendered EXR images in a folder named \texttt{outputs-yyymmdd-hhmmss} where the \texttt{yyymmdd-hhmmss} is substituted for the date and time when the command was issued.
+As soon as the benchmark ends, the user may find the rendered EXR images in a folder named \texttt{outputs-yyymmdd-hhmmss} where the \texttt{yyymmdd-hhmmss} is substituted for the date and then time when the command was issued.
 
-Then, a user may use a second script --- \texttt{visualize.py} that opens the website with the results of the benchmark, the reference images and their difference images. This script must also be run from without the root directory of the benchmark suite. It accepts only two parameters:
+Then, the user may invoke a second script, \texttt{visualize.py}, that opens a website with the results of the last benchmark run along with the reference images and their difference images. This script must also be run from within the root directory of the benchmark suite. It accepts only two parameters:
 
 \begin{description}
 	\item[-{}-help (-h)] Prints the help message
-	\item[-{}-outputs (-o) \textless output\_folder\_name\textgreater] Specify the name of the \texttt{outputs-yyymmdd-hhmmss} folder that is to be visualized. If omitted, the newest folder is picked.
+	\item[-{}-outputs (-o) \textless output\_folder\_name\textgreater] Specify the name of the\\ \texttt{outputs-yyymmdd-hhmmss} folder that is to be visualized. If omitted, the latest folder is picked.
 \end{description}
 
 
 \chapter{Attachments}
 
-All attachments to the thesis are listed below and can be found in the \texttt{attachments} folder. 
+All attachments are listed below and can be found in the \texttt{attachments} folder. 
 
 \section{Benchmark}
 \label{sec:benchmark}
@@ -223,9 +225,9 @@ Contains the whole testing suite, can also be downloaded from \url{https://githu
 \section{Iridescence for Mitsuba2}
 \label{sec:mitsuba2_irid}
 
-Contains the iridescence implementation for Mitsuba2. The folder can be simply copied over the Mitsuba2 code version 2.1.0. Note that only the \texttt{iridescence.h} and \texttt{iridescence.cpp} files contain our code --- the rest of the code mostly belongs to Mitsuba2 and only a small parts that activate the iridescent effects were created by us. 
+Contains the iridescence implementation for Mitsuba2. The folder can be simply copied over the Mitsuba2 code version 2.1.0. Note that only the \texttt{iridescence.h} and \texttt{iridescence.cpp} files contain our code --- the rest of the code mostly belongs to Mitsuba2 and only small parts that activate the iridescent effects were created by us. 
 
-To makes matter more simple, we created a forked repository \url{https://github.com/marcel1hruska/mitsuba2}. The user needs to checkout the \texttt{iridescence} branch and compile it accordingly to the Mitsuba2 documentation~\cite{mitsubaWeb}.
+To make matters more simple, we created a forked repository on \url{https://github.com/marcel1hruska/mitsuba2}. The user needs to checkout the \\ \texttt{iridescence} branch and compile it accordingly to the Mitsuba2 documentation~\cite{mitsubaWeb}.
 
 \section{GGX for ART}
 \label{sec:ggx_art}

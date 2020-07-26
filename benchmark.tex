@@ -156,6 +156,18 @@ The whole project includes multiple tools such as polarization visualizer or ton
 
 As ART is an open source project under GNU v3.0 license, anyone can download and use it.
 
+\section{Methodology}
+
+Before we proceed to the test case scenarios, we should describe the general procedure of adding a new scene to the benchmark. Several steps were followed to design a scene so that it properly examines all essential aspects of a phenomenon while keeping the complexity of the scenes and the amount of them as low as possible:
+
+\begin{description}
+	\item[Natural phenomenon] We've studied the behavior of the phenomenon in the nature, i.e. under what circumstances it is perceivable, how does it look like, how to reproduce it, etc. We've also learned the physical models that are beind each of the tested phenomena as their physical properties are properly described.
+	\item[Computer graphics research] To test a specific appearance computation, it already has to be developed and embedded inside a rendering system. Therefore, we've looked for the publications and research articles that would show the algorithms used for these computations, the structures and the internal representations of the physical quantities. Furthermore, as we test two open source renderers, we could also study exact implementations that are actually evaluated in the rendering process as these give us all the in-depth information we need.
+	\item[Choice of aspects] Based on the research, we've decided what aspects of the phenomena are we going to test. This heavily depends on the specific computation but generally, it is fairly simple to deduce the potential troubles with an algorithm from the scientific publications. They often include measurements and shortcomings of their implementations which greatly simplifies the deductions of the to-be-tested parts. Overall, we take into consideration such computational aspects that are reproducible, easily comprehensible and most importantly, clearly visible in the final image as the actual assessment is done solely from the reference images. 
+	\item[Visualization of aspects] As soon as we've decided on the aspects that are to be exercised, we've designed the scenes that should visualize them. However, we can never fully test all possible combinations as there are, in fact, infinitely many. Therefore, our aim has been to form a minimum number of scenes while maximizing the coverage. This has been actually quite simple --- many of the phenomena exhibit similar behavior under various circumstances and so they can often be categorized. For example, thicker dielectric layers always exhibit lesser iridescent effects so it does not make sense to try it on different base materials. These categories are then pretty straightforward to describe.
+	\item[Manual evaluation] After the scenes are done and they are rendered in the reference renderer, we have manually evaluated each of them based on their physical models and the research papers. This process is supposed to be easy as the scenes were created in a manner that they very clearly display what they were designed for.
+\end{description}
+
 \section{Scenes}
 \label{sec:scenes}
 
