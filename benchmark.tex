@@ -31,13 +31,21 @@ First of all, we take a look into the framework of the benchmark suite and its s
 An automated workflow simplifies the evaluation process and ensures that the user is working with the benchmark correctly. The suite consists of several files to accommodate the principle of modularity:
 
 \begin{description}
+	\item[{/data/configuration.json}] Contains information about all scenes, test case scenarios and renderers in a single JSON structure. In case the user wants to add a new scene, a renderer or a test case scenario, he fills this structure instead of writing new code. A part of the file along with explanatory comments is shown in \autoref{fig:config}.
 	\item[/src/arg\_parser.py] Parses the CLI arguments and the \texttt{settings.json} file and fills its variables accordingly.
-	\item[src/constants.py] Simply contains the constants that are used in other scripts.
+	\item[/src/configurator.py] Takes the \texttt{/data/configuration.json} file, parses it and prepares structures for both benchmark script and the results viewing website. In case the \texttt{configuration.json} file is incorrect, it stops the benchmark or simply warns the user to fix it.
 	\item[/src/normalizer.py] Normalizes the names of the resulting images after the \\benchmark ends as each renderer might have unique naming conventions. It is used only in corner cases.
 	\item[/src/visualizer.py] Runs an HTTP server which is required by JERI (shown in \autoref{sec:jeri}) to upload EXR images and opens the website with the results.
-	\item[benchmark.py] A script that is intended to be directly invoked by the user. Runs other helper scripts mentioned above, his purpose is to actually call the rendering executable for each of the scenes found in \texttt{/data/cases/} accordingly to their \texttt{configuration.json}.
+	\item[benchmark.py] A script that is intended to be directly invoked by the user. Runs other helper scripts mentioned above, his purpose is to actually call the rendering executable for each of the scenes found in \texttt{/data/cases/} accordingly to their configurations.
 	\item[visualize.py] A script that is intended to be directly invoked by the user. It serves as a wrapper around \texttt{/src/visualizer.py}.
 \end{description}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{img/config.png}
+	\caption{Part of the configuration file}
+	\label{fig:config}
+\end{figure}
 
 The choice for Python3 is therefore obvious --- it is a modern, fast, well-known scripting language that is perfectly suitable for our purposes as there is no need for high performance or structurally complicated solutions. Thanks to that, we don't have to force the user to compile the project and the benchmark is immediately ready to use.
 
@@ -46,12 +54,10 @@ The choice for Python3 is therefore obvious --- it is a modern, fast, well-known
 The folder \texttt{/data/cases/} contains the actual scene descriptions along with their configurations. They follow the structure:
 
 \begin{lstlisting}
-/data/cases/<case name>/<renderer>/scenes+configuration
+/data/cases/<case name>/<renderer>/scene
 \end{lstlisting}
 
-The benchmark script browses this structure to find the appropriate\\ \texttt{configuration.json} file. These configurations are specific for each test case scenario and renderer, containing the names of the scenes, their description files and specific parameters that are to be passed to the renderer. The purpose of these configurations is that different scenes might need to be rendered in distinct rendering modes (e.g. spectral) or with various variable definitions.
-
-Each scene is explained in great detail in \autoref{sec:scenes}.
+The benchmark script browses this structure to find each scene specified in \texttt{configuration.json}. The scenes is explained in great detail in \autoref{sec:scenes}.
 
 \subsection{Common data}
 
@@ -85,7 +91,7 @@ Some of the evaluated computations at least partially contribute to the material
 \subsection{JERI}
 \label{sec:jeri}
 
-For the user's convenience, we decided to integrate an EXR visualizer. As it is an extra addition, we use an existing one instead of creating our own.
+For the user's convenience, we decided to integrate an EXR visualizer. As it is an addition, we use an existing one instead of creating our own.
 
 \emph{JERI} (Javascript Extended-Range Image) is an EXR viewer written in \\JavaScript and developed by~\citet{jeriWeb}. It is simple to use and to integrate and provides many features over the images such as zoom, change of exposure and automatic error maps.
 
@@ -340,37 +346,41 @@ Frodo is a mitsuba2 developer who recently changed the sampling strategies of th
  
 \subsection{Use case New feature}
 \label{sec:frodo}
-Frodo is an ART developer who would like to add the GGX microfacet distribution to ART as it is not currently supported in the latest version. He finds the code snippets that are attached to the benchmark suite and integrates them to ART.
+Frodo is an ART developer who would like to add the GGX microfacet distribution to ART as it is not currently supported in the latest version. He follows these steps:
 
-Then, he looks up the scenes prepared for Mitsuba2 that test the GGX reflectance and, as these contain only a straightforward geometry,  duplicates them. He saves them in a folder \texttt{/data/cases/reflectance/ART/} and creates \texttt{configuration.json} file in the same folder that only specifies the names of the resulting images, the filenames of the test scenes and the parameters that are to be passed to the renderer (examples can be seen in different ART scenarios).
+\begin{enumerate}
+	\item Find the code snippets that are attached to the benchmark suite and integrate them to ART.
+	\item Duplicate the scenes prepared for Mitsuba2 that test the GGX reflectance and store them in a new \texttt{/data/cases/reflectance/ART/} folder. This step should be straightforward as the objects inside the scenes are fairly basic and commented.
+	\item For each affected scene, add a JSON snippet to \texttt{configuration.json} file containing the newly supported renderer's name and its parameters (look at \autoref{fig:config}). From that moment on, the benchmark runs the GGX tests for ART as well.
+	\item Set the benchmark suite to \texttt{ART} and run it.
+\end{enumerate}
 
-Next, he sets the benchmark suite to \texttt{ART} and runs it. The benchmark automatically detects the new configuration for ART. Either from the reference images or from the difference images, he may determine some irregularities that are caused by his incorrect implementation of the masking function. As soon as he corrects it, he sees that the results are coherent.
+The benchmark automatically detects the new configuration for ART. Either from the reference images or from the difference images, Frodo may determine some irregularities that are caused by his incorrect implementation of the masking function. As soon as he corrects it, he sees that the results are coherent.
 
 \subsection{Use case New scenario}
 
-Frodo is a Mitsuba2 developer who just added support for dispersion. As the dispersion has never been tested before, he simply adds a new folder to the benchmark suite \texttt{/data/cases/dispersion/mitsuba2/} and, as in the previous cases, he creates the \texttt{configuration.json} for it.
+Frodo is a Mitsuba2 developer who just added support for dispersion. As the dispersion has never been tested before, he simply adds a new folder to the benchmark suite \texttt{/data/cases/dispersion/mitsuba2/} and, as in the previous case, he adds the dispersion test case scenario to the \texttt{configuration.json} file.
 
-Now, he must add the keyword \texttt{dispersion} to the string array \texttt{TEXT\_CASES} that can be found in the file \texttt{/src/constants.py}.
-
-From now on, the benchmark contains the dispersion tests as well. If he wants to provide the reference images as well, these need to be stored in the \texttt{/data/references} folder.
-
-In case he also wants to add the new scenario to the visualizer, he needs to extend the file \texttt{/jeri/page/results\_viewer.html}. But, as the HTML page only consists of a simple JSON containing the elements to be displayed, it is fairly easy to do so.
+From now on, the benchmark contains the dispersion tests as well. If Frodo wants to provide the reference images as well, these need to be stored in the \texttt{/data/references} folder.
 
 \subsection{Use case Improved feature}
 
 Frodo is an ART developer who reworked the fluorescent materials and would like to see if the new implementation improved them.
 
-The test scenes may be considered as templates, used to create the reference images. Frodo simply adjusts the test scenes in the fluorescence test case scenario to his needs. If he finds out that the results indeed improved, he may replace the existing reference images for the better, adjusted ones.
+The test scenes may be considered as templates used to create the reference images. Frodo simply adjusts the test scenes in the fluorescence test case scenario to his needs. If he finds out that the results indeed improved, he may replace the existing reference images for the better, adjusted ones.
 
 \subsection{Use case New renderer}
 
-Frodo has created his own spectral renderer the Ring that supports all the test case scenarios in the benchmark suite and he wants to evaluate the correctness of his implementations.
+Frodo has created his own spectral renderer, called TheRing, that supports all the test case scenarios in the benchmark suite and he wants to evaluate the correctness of his implementations. He follows these steps:
 
-Therefore, he rewrites the template scenes from other renderers to his own scene format. He creates a new folder for each test case scenario in the \texttt{/data/cases/}, puts his scenes inside accordingly and creates the \texttt{configuration.json} for each of them.
-
-Then, he adds the support for his renderer to the benchmark --- in the \texttt{/src/constants.py} file, he includes the \texttt{ring} keyword to the string array \\ \texttt{RENDERERS}.
-
-Now, he can set the benchmark to evaluate the new Ring renderer. The benchmark pipeline as well as the visualization is done for it automatically.
+\begin{enumerate}
+	\item Create a new folder \texttt{thering} for each test case scenario in the \texttt{/data/cases/}
+	\item Rewrite the template scenes from other renderers to his own scene format
+	\item Store these scenes in the newly created folders accordingly
+	\item Add TheRing to the array containing renderers at the beginning of the\\ \texttt{configuration.json} file
+	\item For each scene, add a JSON snippet to the \texttt{configuration.json} file containing the newly supported renderer's name and its parameters. From that moment on, the benchmark fully supports TheRing renderer.
+	\item Set the benchmark suite to \texttt{thering} and run it. The benchmark pipeline as well as the visualization work automatically.
+\end{enumerate}
 
 \section{Open source contributions}
 
