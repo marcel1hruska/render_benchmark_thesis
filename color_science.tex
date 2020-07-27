@@ -19,7 +19,7 @@ As all electromagnetic radiations, the light also propagates in form of waves. T
 \end{figure}
 
 
-Normally, by the term light we mean the \emph{visible light} (also called the \emph{white light}) which consists of multiple waves of unique frequencies (wavelengths). There are no exact boundaries to the visible spectrum as distinct human eyes might perceive light slightly differently but the lower boundary is estimated between 360 and 400nm and the upper boundary from 760 to 830nm~\cite{sliney2016light}. The light above this range is called infrared light and below ultraviolet. An explanatory image of the known electromagnetic wavelengths can be found in \autoref{fig:wavelengths}.
+Normally, by the term light we mean the \emph{visible light} which consists of multiple waves of unique frequencies (wavelengths). There are no exact boundaries to the visible spectrum as distinct human eyes might perceive light slightly differently but the lower boundary is estimated between 360 and 400nm and the upper boundary from 760 to 830nm~\cite{sliney2016light}. The light above this range is called infrared light and below ultraviolet. An explanatory image of the known electromagnetic wavelengths can be found in \autoref{fig:wavelengths}.
 
 \begin{figure}[h]
 	\centering
@@ -74,11 +74,11 @@ The conversion from the spectrum to an RGB color space looks as follows:
 	\caption[CMF]{Color matching functions plotted in Python\footnotemark}
 	\label{fig:cmf}
 \end{figure}
-\footnotetext{\url{https://scipython.com/blog/converting-a-spectrum-to-a-colour/}}
+\footnotetext{The X,Y,Z data taken from \url{https://www.waveformlighting.com/tech/color-matching-function-x-y-z-values-by-wavelength-csv-excel-format}}
 
 \subsection{Photometry and Radiometry}
 
-Two different science fields were developed to quantify the light --- \emph{photometry} and \emph{radiometry}. The radiometry recognizes the light as an electromagnetic radiation while the photometry focuses more on the human perception of the light. Despite the distinct purposes, their quantities are often easily convertible.
+Two different sets of measurement units were developed to quantify the light --- \emph{photometry} and \emph{radiometry}. The radiometry recognizes the light as an electromagnetic radiation while the photometry focuses more on the human perception of the light. Despite the distinct purposes, their quantities are often easily convertible.
 
 \begin{tabular}{ll}
 	\hline
@@ -346,7 +346,7 @@ Over the years, a large number of various light transport algorithms and their v
 	\item If no scene geometry is hit, terminate the algorithm and add the color of the surrounding light (if there is any).
 \end{enumerate}
 
-The bouncing of the light in the scene nicely correlates with the recursive nature of the rendering equation. Even though the path tracing is a slow algorithm (i.e. not suitable for real-time rendering in games), its variations can be extremely accurate, even indistinguishable from a real photograph. 
+The bouncing of the light in the scene nicely correlates with the recursive nature of the rendering equation. Even though the path tracing is a slow algorithm (i.e. not suitable for real-time rendering in games), its variations can be extremely accurate. Providing equally accurate surface models used in the scene, the resulting images might even be indistinguishable from real photographs. 
 
 
 \paragraph{MIS}
@@ -449,7 +449,7 @@ They are explained in detail in \autoref{chap:appearance}.
 
 On the other side, the need to numerically integrate over multiple wavelengths introduces a problem of the chromatic noise. Fortunately, this has been effectively eliminated by the introduction of \emph{Hero Wavelength Spectral sampling}~\cite{wilkie2014hero}. Also, even though the performance is not a key factor, it obviously worsens as well. 
 
-Moreover, we are still unable to properly display spectral images on the current monitors. The only viable way is to store the distinct spectral bands as separate images. Clearly, it is quite inconvenient to have multiple results instead of one as it does not correlate with the images that we capture in reality. Therefore, the rendering needs to have a well-done spectrum to final RGB conversion as the final image is still being displayed on an RGB monitor. Fortunately, the conversion is well-defined and fairly simple to implement.
+Moreover, it is quite possible that the spectral images won't ever be properly displayable on the screens. Even the most modern monitors use a color space that is still smaller than the gamut of human-perceived colors. The only viable way is to store the distinct spectral bands as separate images. Clearly, it is quite inconvenient to have multiple results instead of one as it does not correlate with the images that we capture in reality. Therefore, the rendering needs to have a well-done spectrum to final RGB conversion as the final image is still being displayed on an RGB monitor. Fortunately, the conversion is well-defined and fairly simple to implement.
 
 Due to the fact that the RGB gamut is only a subset of the visible spectrum, the situation gets significantly more complicated for the reversed conversion. As there exist infinitely many spectra for one RGB value, several techniques were proposed to convert the tristimulus to the spectral domain --- commonly called the \emph{spectral upsampling}. For those who may be interested in the details of the current development to the spectral upsampling, refer to the article by \citet{jakob2019low} which proposes a solution that is capable of converting full sRGB gamut with zero error.
 

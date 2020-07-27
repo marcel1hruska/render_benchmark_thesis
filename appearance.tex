@@ -200,7 +200,7 @@ If the  reader is curious about the complications this implementation brings and
 
 \section{Dispersion}
 
-Generally, the IOR of a dielectric at least slightly varies for different wavelengths (e.g. glass has IOR between 1.5 and 1.6). This causes that the polychromatic light is split into its spectral components upon an intersection with such materials. As each wavelength is slightly shifted, a rainbow effect can be perceived --- this phenomenon is called the \emph{dispersion}. In the nature, it can be frequently seen when light passes through liquids (e.g. sun through rain). For the scientific purposes, several variations of a device called the dispersive prism~\ref{fig:dispersion} have been developed to artificially create the dispersive effect. 
+Generally, the IOR of a dielectric at least slightly varies for different wavelengths (e.g. glass has IOR between 1.5 and 1.6). This causes that the polychromatic light is split into its spectral components upon an intersection with such materials. As each wavelength is slightly shifted, a rainbow effect can be perceived --- this phenomenon is called \emph{dispersion}. In nature, it can be frequently seen when light passes through liquids (e.g. sun through rain). To artificially reproduce the spectral dispersion, an object having a shape of a triangular prism, commonly called dispersive prism~\ref{fig:dispersion}, can be used.
 
 \begin{figure}[h]
 	\centering
@@ -212,7 +212,7 @@ Generally, the IOR of a dielectric at least slightly varies for different wavele
 
 In the computer graphics, even though it is possible to simulate the dispersion in the tristimulus rendering, it is insufficient and the obvious choice would be to use the spectral rendering as it already contains most of the information about the tracking of the wavelengths. 
 
-The missing part is the representation of the varying IOR --- currently, the widely used method is called \emph{Sellmeier approximation}~\cite{wilkie2002tone}. Then, the renderer must be capable of tracking the possibly dispersed monochromatic rays upon a surface interaction of a single polychromatic ray, i.e. create extra samples that were unnecessary before.
+Then, it is necessary to properly represent the varying and not always monotonic IOR --- for that reasons, \emph{Sellmeier approximation}~\cite{wilkie2002tone} is widely used. Then, the renderer must be capable of tracking the possibly dispersed monochromatic rays upon a surface interaction of a single polychromatic ray, i.e. create extra samples that were unnecessary before.
 
 \section{Iridescence}
 \label{sec:irid}
@@ -291,8 +291,8 @@ Please note that there is a difference between fluorescence, luminescence and ph
 
 \begin{description}
 	\item[Luminescence] Natural production of light caused by chemical reactions (no absorption)
-	\item[Phosphorescence] Similar to fluorescence but emits light even after the light source is gone
-	\item[Fluorescence] The emission stops almost instantaneously after the light source is gone
+	\item[Phosphorescence] Absorbs light, emitting radiation has an exponential decay --- emission is visible for some time after the light source is gone
+	\item[Fluorescence] Absorbs light, emission stops almost instantaneously after the light source is gone
 \end{description}
 
 \subsection{Fluorescence in rendering}

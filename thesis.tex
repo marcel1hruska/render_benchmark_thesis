@@ -103,8 +103,8 @@ Many techniques for the computation of realistic images exist, and there are a n
 such systems. In addition to the light transport technique which is being used, the details of how description and
 computation of object appearance are key distinguishing features. The details in questions span a wide range of
 features, such as the list of BRDF and BSSDF models which are supported in a given system, to the question
-whether computations are performed in colour space or in spectral form, to whether features such polarisation or
-fluorescence are being supported. Although there are obvious similarities between systems, there is no standardised
+whether computations are performed in color space or in spectral form, to whether features such polarization or
+fluorescence are being supported. Although there are obvious similarities between systems, there is no standardized
 implementation of any of these features, and their computation might vary in terms of accuracy.
 
 Currently, whenever a researcher works on any aspect of appearance computation, they demonstrate their findings
@@ -116,7 +116,7 @@ this thesis is to introduce such a set of scenes that can be used to methodicall
 their appearance reproduction capabilities. The test scenes are created in such a manner that they examine the
 capabilities of the appearance computations to correctly render respective features, while neglecting other aspects
 of rendering, such as global illumination. With the appearance in mind, we focus on spectral rendering in general,
-as well as specialised forms of it, such as fluorescence, dispersion or polarisation. For various test cases, we
+as well as specialized forms of it, such as fluorescence, dispersion or polarization. For various test cases, we
 manually verify that the reference images display proper results according to the definition of respective features.
 }
 
@@ -178,7 +178,7 @@ manually verify that the reference images display proper results according to th
 %%% Allowed file formats are specified in provision of the rector no. 72/2017.
 \appendix
 \chapter{User Guide}
-
+\label{user_guide}
 The user may clone/download the benchmark from the github repository \url{https://github.com/marcel1hruska/render_benchmark} or he can find it in the attachments of thesis~\ref{sec:benchmark}. As the whole benchmark is written in Python3, there is no need to compile the project. 
 
 Firstly, it is necessary to modify \texttt{settings.json} file in the root directory of the benchmark suite --- the user must specify the path to the renderer executable and the name of the renderer (currently, the only viable options are \texttt{mitsuba2} and \texttt{ART}).

@@ -148,7 +148,7 @@ On top of the standard features that most conventional renderers offer, such as 
 
 \begin{description}
 	\item[Spectral rendering] Uses Hero wavelengths spectral sampling
-	\item[Fluorescence] Supports fluorescent materials, volumes and even illuminants
+	\item[Fluorescence] Supports fluorescent materials and volumes
 	\item[Polarization] Capable of tracking full polarization state of the light
 \end{description}
 
@@ -350,48 +350,55 @@ Unfortunately, we do not provide any test scences for dispersion. Mitsuba2 simpl
 
 \section{Use cases}
 
-In the following sections, we demonstrate the basic uses cases of our testing suite using a fictional persona called Frodo.
+In the following sections, we demonstrate the basic uses cases of our testing suite.
 
 \subsection{Use case Regress test}
 
-Frodo is a mitsuba2 developer who recently changed the sampling strategies of the spectral rendering. However, he is not sure whether he broke some of the functionalities. He sets the benchmark to \texttt{mitsuba2} and provides his latest executable. Then, he runs all test case scenarios and compares the results with the reference images.
+A user who recently changed an essential but not directly tested part of the renderer (e.g. sampling strategy) wishes to confirm that he did not break any other functionality. He downloads our benchmark and inserts his latest executable. Then, he runs all test case scenarios and compares the results with the reference images. Refer to the user guide for more information about the usage of the benchmark~\ref{user_guide}.
  
 \subsection{Use case New feature}
 \label{sec:frodo}
-Frodo is an ART developer who would like to add the GGX microfacet distribution to ART as it is not currently supported in the latest version. He follows these steps:
+A user wishes to implement one of the tested features to a rendering system that is not yet evaluated for that specific scenario but generally supported by the benchmark (e.g. GGX microfacet distribution to ART). He wishes to check the correctness of its implementation so he follows these steps:
 
 \begin{enumerate}
-	\item Find the code snippets that are attached to the benchmark suite and integrate them to ART.
-	\item Duplicate the scenes prepared for Mitsuba2 that test the GGX reflectance and store them in a new \texttt{/data/cases/reflectance/ART/} folder. This step should be straightforward as the objects inside the scenes are fairly basic and commented.
-	\item For each affected scene, add a JSON snippet to \texttt{configuration.json} file containing the newly supported renderer's name and its parameters (look at \autoref{fig:config}). From that moment on, the benchmark runs the GGX tests for ART as well.
-	\item Set the benchmark suite to \texttt{ART} and run it.
+	\item If provided, find the code snippets that are attached to the benchmark suite and integrate them to the renderer.
+	\item Duplicate the scenes prepared for other renderers that test the feature and store them in a new \texttt{/data/cases/feature/renderer/} folder. This step should be straightforward as the objects inside the scenes are fairly basic and commented.
+	\item For each affected scene, add a JSON snippet to \texttt{configuration.json} file containing the newly supported renderer's name and its parameters (look at \autoref{fig:config}).
+	\item Insert the latest executable to the benchmark and run it.
 \end{enumerate}
 
-The benchmark automatically detects the new configuration for ART. Either from the reference images or from the difference images, Frodo may determine some irregularities that are caused by his incorrect implementation of the masking function. As soon as he corrects it, he sees that the results are coherent.
+The benchmark automatically detects the new configuration. Either from the reference images or from the difference images, the user may now run the evaluation to assess the accuracy of the newly implemented feature.
 
 \subsection{Use case New scenario}
 
-Frodo is a Mitsuba2 developer who just added support for dispersion. As the dispersion has never been tested before, he simply adds a new folder to the benchmark suite \texttt{/data/cases/dispersion/mitsuba2/} and, as in the previous case, he adds the dispersion test case scenario to the \texttt{configuration.json} file.
+A user who wishes to add a completely new test case scenario must follow these few steps:
 
-From now on, the benchmark contains the dispersion tests as well. If Frodo wants to provide the reference images as well, these need to be stored in the \texttt{/data/references} folder.
+\begin{enumerate}
+	\item Add a new folder to the benchmark suite \texttt{/data/cases/new\_scenario/}
+	\item Add JSON snippet for the new scenario to the \texttt{configuration.json} file
+\end{enumerate}
+
+From now on, the benchmark automatically evaluates this feature as well. If the user wants to provide the reference images, these need to be stored in the \texttt{/data/references} folder.
 
 \subsection{Use case Improved feature}
 
-Frodo is an ART developer who reworked the fluorescent materials and would like to see if the new implementation improved them.
+A user who improved a specific feature and wishes to confirm his assumptions may use the benchmark in a standard way.
 
-The test scenes may be considered as templates used to create the reference images. Frodo simply adjusts the test scenes in the fluorescence test case scenario to his needs. If he finds out that the results indeed improved, he may replace the existing reference images for the better, adjusted ones.
+The scene descriptions may be considered as templates used to create the reference images. In case some structural changes were done inside the renderer, such as variable names, the scenes can be easily adjusted to comply with the new renderer.
+
+If he finds out that the results indeed improved, he may replace the existing scene descriptions, as well as the reference images, for the better, adjusted ones.
 
 \subsection{Use case New renderer}
 
-Frodo has created his own spectral renderer, called TheRing, that supports all the test case scenarios in the benchmark suite and he wants to evaluate the correctness of his implementations. He follows these steps:
+A user who wishes to add support for a new renderer into the benchmark suite must follow these steps::
 
 \begin{enumerate}
-	\item Create a new folder \texttt{thering} for each test case scenario in the \texttt{/data/cases/}
+	\item Create a new folder with the name of the renderer for each test case scenario in the \texttt{/data/cases/}
 	\item Rewrite the template scenes from other renderers to his own scene format
 	\item Store these scenes in the newly created folders accordingly
-	\item Add TheRing to the array containing renderers at the beginning of the\\ \texttt{configuration.json} file
-	\item For each scene, add a JSON snippet to the \texttt{configuration.json} file containing the newly supported renderer's name and its parameters. From that moment on, the benchmark fully supports TheRing renderer.
-	\item Set the benchmark suite to \texttt{thering} and run it. The benchmark pipeline as well as the visualization work automatically.
+	\item Add the renderer's name to the array containing all supported renderers at the beginning of the  \texttt{configuration.json} file
+	\item For each scene, add a JSON snippet to the \texttt{configuration.json} file containing the newly supported renderer's name and its parameters.
+	\item Insert the latest executable to the benchmark and run it.
 \end{enumerate}
 
 \section{Open source contributions}
@@ -400,7 +407,7 @@ During our work on the benchmark, we have done several noteworthy contributions 
 
 \subsection{GGX for ART}
 
-The use case described in \autoref{sec:frodo} actually happened to us (not to Frodo). We've decided to add the GGX distribution to the ART renderer and, coincidentally, it nicely correlated with the mentioned scenario. We had the scenes and the reference images prepared for Mitsuba2, we simply replicated them for ART and implemented the GGX. Then, as mentioned in the use case, we iterated the benchmark and the adjustments in the code over and over until the results were satisfactory.
+The use case described in \autoref{sec:frodo} actually happened to us. We've decided to add the GGX distribution to the ART renderer and, coincidentally, it correlated with the mentioned scenario. We had the scenes and the reference images prepared for Mitsuba2, we simply replicated them for ART and implemented the GGX. Then, as mentioned in the use case, we iterated the benchmark and the adjustments in the code over and over until the results were satisfactory.
 
 The implementation can be found in the attachments of the thesis in \autoref{sec:ggx_art}.
 
