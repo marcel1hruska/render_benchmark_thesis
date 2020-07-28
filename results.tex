@@ -3,17 +3,17 @@
 
 This chapter overviews the results of the evaluation of ART via direct comparison with Mitsuba2. As we've noted before, the fluorescence is exclusive to ART, iridescence to Mitsuba2 and therefore we are not evaluating these as there is no other renderer to compare them with.
 
-Unfortunately, we do not provide any measures that would asses the accuracy of the techniques in an absolute manner, such as accuracy percentage or correctness threshold. Such metric would require an extensive research in the image validation which is out of scope of this thesis. For anyone interested, the verification of the rendering algorithms is discussed in the article by \citet{ulbricht2006verification}.
+Unfortunately, we do not provide any measures that would assess the accuracy of the techniques in an absolute manner, such as accuracy percentage or correctness threshold. Such a metric would require extensive research in the image validation which is out of the scope of this thesis. For anyone interested, the verification of the rendering algorithms is discussed in the article by \citet{ulbricht2006verification}.
 
 \section{Error maps}
 
 The only assessment we provide is via difference images. Even though these do not exactly state whether the computation is correct or not, they might help to expose some inaccuracies.
 
-The difference images shown in the following sections are created by L1 and SSIM error maps, both integrated in the JERI framework and consequently in our benchmark. 
+The difference images shown in the following sections are created by L1 and SSIM error maps, both included in the JERI framework and consequently in our benchmark. 
 
 \subsection{L1}
 
-\emph{Least absolute deviations}, also known as L1 loss function, computes the absolute difference between the given data and the predicted function:
+\emph{Least absolute deviations}, also known as L1 loss function, compute the absolute difference between the given data and the predicted function:
 
 \begin{equation}
 L1=\sum_{i=1}^{n}\mid y_i - f(x_i) \mid
@@ -21,7 +21,7 @@ L1=\sum_{i=1}^{n}\mid y_i - f(x_i) \mid
 
 Generally, it is largely used in the statistical optimizations to find a function that behaves similarly to the given data, minimizing their differences.
 
-In our case, the error map is actually an image that shows the direct differences between the color values for each pixel. This is considered by us to be the absolute basic as it might expose the color inaccuracies that are barely visible to the naked eye.
+In our case, the error map is an image that shows the direct differences between the color values for each pixel. This is considered by us to be the absolute basic as it might expose the color inaccuracies that are barely visible to the naked eye.
 
 \subsection{SSIM}
 \emph{Structural similarity index measure} (SSIM) is a lot more advanced method, specifically developed by \citet{wang2004image} to measure the loss of data between a reference image and its processed (usually compressed) equivalent. As it is a perceptual metric comparing two images capturing the same scene, we include it in our benchmark.
@@ -30,7 +30,7 @@ However, this technique cannot be considered as an absolute metric of correctnes
 
 \section{GGX}
 
-As the GGX implementation for ART was developed by us, it was necessary that we evaluate its correctness. In this section, we discuss the copper plane scene (rotated by 60 degrees) and the glass sphere scene, their implementations in Mitsuba2 and ART and their difference images. All of these images are displayed in \autoref{fig:compare_ggx_copper} and \autoref{fig:compare_ggx_glass}.
+As the GGX implementation for ART was developed by us, we needed to evaluate its correctness. In this section, we discuss the copper plane scene (rotated by 60 degrees) and the glass sphere scene, their implementations in Mitsuba2 and ART and their difference images. All of these images are displayed in \autoref{fig:compare_ggx_copper} and \autoref{fig:compare_ggx_glass}.
 
 \renewcommand\thesubfigure{\arabic{subfigure}}
 \begin{figure}[h]
@@ -86,9 +86,9 @@ As the GGX implementation for ART was developed by us, it was necessary that we 
 	\label{fig:compare_ggx_glass}
 \end{figure}
 
-We should note that Mitsuba2 actually implements the improved variant of GGX developed by \citet{heitz2018sampling} which significantly reduces variance. We implemented the original, basic variant~\cite{walter2007microfacet} which logically creates lots of noise for the same amount of samples. Consequently, this diminishes the usability of the SSIM method as the result simply could not converge to the correct state. This is true especially for the glass sphere as there are lot more reflections under various angles than on a simple plane.
+We should note that Mitsuba2 implements the improved variant of GGX developed by \citet{heitz2018sampling} which significantly reduces variance. We implemented the original, basic variant~\cite{walter2007microfacet} which logically creates lots of noise for the same amount of samples. Consequently, this diminishes the usability of the SSIM method as the result simply could not converge to the correct state. This is true especially for the glass sphere as there are lot more reflections under various angles than on a simple plane.
 
-However, the L1 function nicely shows that our implementation should be correct. In case of the plane, we see only few dots, signaling that some samples might have brighter colors. In case of the sphere, we can see a larger groups of the dots at the bottom, which is probably caused by the general rough surface model and not the microfacet distribution, as the colors match.
+However, the L1 function nicely shows that our implementation should be correct. In case of the plane, we see only a few dots, signaling that some samples might have brighter colors. In case of the sphere, we can see larger groups of dots at the bottom, which is probably caused by the general rough surface model and not the microfacet distribution, as the colors match.
 
 \section{Spectral Accuracy}
 
@@ -148,7 +148,7 @@ The spectral accuracy is significantly harder to quantify and measure as there a
 	\label{fig:compare_macbeth_d50}
 \end{figure}
 
-On the first sight, the two images are extremely similar --- the spectral definitions for the Macbeth colors and the illuminants are the very same for both renderers which is backed by the L1 comparisons. But as we look on the SSIM, there are slight variations in different color patches. The Macbeth blue and black are accurate but for some reason the others, especially yellow and yellow-green are slightly more saturated in the reference images. This might indicate a potential flow in the stochastic approach of spectral sampling in Mitsuba2 but as the differences are barely there, we do not consider the results to be incorrect. Note that the two SSIM images are almost identical which shows that the relative comparison under the same lighting conditions matches.  
+At first sight, the two images are extremely similar --- the spectral definitions for the Macbeth colors and the illuminants are the very same for both renderers which can be confirmed from the L1 comparisons. But as we look at the SSIM, there are slight variations in different color patches. The Macbeth blue and black are accurate but for some reason the others, especially yellow and yellow-green are slightly more saturated in the reference images. This might indicate a potential flow in the stochastic approach of spectral sampling in Mitsuba2 but as the differences are barely there, we do not consider the results to be incorrect. Note that the two SSIM images are almost identical which shows that the relative comparison under the same lighting conditions matches.  
 
 \section{Polarization}
 
@@ -210,6 +210,6 @@ The second discussed scene is shown in \autoref{fig:compare_polar_angle} and dem
 	\label{fig:compare_polar_angle}
 \end{figure}
 
-The polarizing plane scene might seem to be more attenuated in case of ART, especially under the plane. However, this does not concern us as the purpose of the scene is to expose the behavior of the unpolarized light upon the interaction with a surface under a Brewster's angle rather than the material's transmission properties. Neither of the difference images show obvious inconsistencies but both are suggesting that the reflection of the light on the plane is at least partially off.
+The polarizing plane scene might seem to be more attenuated in case of ART, especially under the plane. However, this does not concern us as the purpose of the scene is to expose the behavior of the unpolarized light upon the interaction with a surface under Brewster's angle rather than the material's transmission properties. Neither of the difference images shows obvious inconsistencies but both are suggesting that the reflection of the light on the plane is at least partially off.
 
-After the simplifications done to the polarizing spheres scene, we can see that the results are almost identical. But, there is  a visible difference in the vertical polarization on the spheres (properly exposed by SSIM) and we could conclude that Mitsuba2 does not track completely unpolarized light properly. However, bear in mind that the images we compare are not airect results of the rendering process but rather a byproduct of a specific structure inside it so it might simply be a color output inconsistency rather than a polarization tracking flaw.
+For the simplified polarizing spheres scene, we can see that the results are almost identical. But, there is  a visible difference in the vertical polarization on the spheres (properly exposed by SSIM) and we could conclude that Mitsuba2 does not track completely unpolarized light properly. However, bear in mind that the images we compare are not direct results of the rendering process but rather a byproduct of a specific structure inside it so it might simply be a color output inconsistency rather than a polarization tracking flaw.
