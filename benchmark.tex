@@ -297,16 +297,9 @@ The test scenes take inspiration from the implementation of fluorescence by \cit
 		\caption{}
 		\label{fig:fluorescent_sphere_mono_invisible}
 	\end{figure}
-	\item[Fluo illuminant, non fluo sphere~\ref{fig:fluorescent_sphere_fluoD50_nonfluo}] The sphere has a non-fluorescent yellow material and it is placed under a F8 fluorescent light. As the light directly simulates the D50 illuminant, the sphere appears to be yellow accordingly to its basis but the backgroung is not purely white due to the inconsistencies between the D50 fluorescent simulator and the actual D50 illuminant.
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=.6\linewidth]{img/fluorescent_sphere_fluoD50_nonfluo.png}
-		\caption{}
-		\label{fig:fluorescent_sphere_fluoD50_nonfluo}
-	\end{figure}
 \end{description}
 
-Many more combinations testing different emitting/absorbing spectral domains and illuminants are possible, however, we believe that they would only be variations of the four test case scenarios mentioned above --- normal light with a fluorescent sphere, monochrome light with a sphere absorbing different wavelengths, monochrome light with a compatible sphere and fluorescent light with a non-fluorescent sphere.
+Many more combinations testing different emitting/absorbing spectral domains and illuminants are possible, however, we believe that they would only be variations of the four test case scenarios mentioned above --- normal light with a fluorescent sphere, monochrome light with a sphere absorbing different wavelengths and monochrome light with a compatible sphere. We do not test fluorescent illuminants on purpose as these, from the technical point of view, have nothing do the with fluorescent effects but they are using fluorescent materials inside them.
 
 \subsection{Iridescence}
 
