@@ -395,23 +395,23 @@ A single walk of a path tracer capable of volume tracing and MIS sampling is vis
 Path tracing is our main concern in this thesis due to its physically based and unbiased properties. Some of the other global illumination techniques are mentioned only briefly in the following description:
 
 \begin{description}
-	\item[Ray tracing]\cite{glassner1989introduction} Similar to the path tracing but there are no bounces from the surfaces --- simulates only reflections, refractions, scattering, etc. These days, real-time rendering is capable of ray tracing.
-	\item[Photon mapping]\cite{jensen2001realistic} Two rays are traced independently --- from the camera and from the light source until termination occurs, then the radiance is computed based on their final positions. Faster in some scenarios but biased (does not have to converge to a correct solution).
-	\item[Radiosity]\cite{sillion1994radiosity}Uses the finite element method instead of Monte Carlo. View independent, the light is traced from the source and bounced (possibly) to the viewer. Good for precomputations. 
+	\item[Ray tracing]\cite{glassner1989introduction} Similar to path tracing, but there are no bounces from the surfaces, it simulates only reflections, refractions, scattering, etc. Nowadays, real-time rendering is capable of ray tracing.
+	\item[Photon mapping]\cite{jensen2001realistic} Two rays traced independently --- one from the camera, the other from the light source --- until termination occurs. The resulting radiance is computed based on their final positions. Faster in some scenarios but biased (does not have to converge to a correct solution).
+	\item[Radiosity]\cite{sillion1994radiosity}Uses the finite element method instead of Monte Carlo. View independent, the light is traced from the source and (possibly) bounced to the viewer. Good for precomputations. 
 \end{description}
 
 \section{Spectral Rendering}
 
-So far, we have considered the colors to be internally represented by a tristimulus color space during the rendering process. For the explanation purposes, let's assume RGB color space --- colors of all objects in the scene are defined in RGB, the path tracing step colors are RGB and the output color is RGB. In a large number of scenarios, this workflow is sufficient as we are capable of simulating a majority of the common aspects (e.g. optics) while keeping the rendering simple and robust. Unfortunately, the RGB color space is only a fraction of the visible gamut and has no notion of the light as electromagnetic radiation. Consequently, we are losing a significant amount of information, causing the colors to be at times inaccurate, and some phenomena completely impossible to render. 
+So far, we have considered the colors during the rendering process to be internally represented by a tristimulus color space. For the explanation purposes, let us assume RGB color space --- colors of all objects in the scene are defined in RGB, the path tracing step colors are RGB and the output color is RGB. In many scenarios, this workflow is sufficient as we are capable of simulating a majority of the common aspects (e.g. optics) while keeping the rendering simple and robust. Unfortunately, the RGB color space is only a fraction of the visible gamut and has no notion of the light as electromagnetic radiation. Consequently, we are losing a significant amount of information, causing the colors to be inaccurate at times, and some phenomena impossible to render. 
 
-Therefore, a new approach to the rendering has been introduced that internally represents the colors as a spectrum distribution function instead of a tristimulus color space --- the \emph{spectral rendering}. The core idea is to track and sample several wavelengths at once for each step of the path tracing and to perform the integration over all of them. We also generalize the BSDF to account for the wavelengths: $f_r(\lambda,\omega_i,\omega_o)$.
+Therefore, a new approach to the rendering has been introduced that internally represents the colors as a spectrum distribution function instead of a tristimulus color space --- \emph{spectral rendering}. The core idea is to track and sample several wavelengths at once for each step of path tracing and to perform the integration over all of them. We also generalize the BSDF to account for the wavelengths: $f_r(\lambda,\omega_i,\omega_o)$.
 
-Most of the phenomena evaluated in this thesis are a direct consequence of the light's nature as electromagnetic radiation, hence the primary focus is placed on the spectral rendering.
-The following sections are largely based on a publication by \citet{wilkie2002tone}.
+Most of the phenomena evaluated in this thesis are a direct consequence of the light's nature as electromagnetic radiation, hence the primary focus is placed on spectral rendering.
+The following sections are mainly based on a publication by \citet{wilkie2002tone}.
 
 \subsection{Color representation}
 
-If the spectral rendering is desired, some representation of the spectral distribution functions needs to be implemented. While several techniques are feasible, it is often a matter of a simple trade-off between precision and performance. For example, sampling wavelengths uniformly each 5nm would yield significantly more accurate results than sampling only four wavelengths in total. However, such an approach might become unbearable in terms of speed and memory. Moreover, the spectral functions are usually quite smooth, therefore such dense sampling is mostly completely unnecessary. Some examples of these functions can be seen in \autoref{fig:spectral_color}.
+If spectral rendering is desired, a representation of the spectral distribution functions needs to be implemented. While several techniques are feasible, it is often a matter of a simple trade-off between precision and performance. For example, sampling wavelengths uniformly each 5nm would yield significantly more accurate results than sampling only four wavelengths in total. However, such an approach might become unbearable in terms of speed and memory. Moreover, the spectral functions are usually quite smooth, therefore such dense sampling is mostly unnecessary. A few examples of these functions can be seen in \autoref{fig:spectral_color}.
 
 A typical approach is to sample at larger ranges (more than 10 nanometers) and use basis functions for the representation~\cite{peercy1993linear}. More approaches and their details are briefly explained by \citet{wilkie2002tone}.
 
@@ -424,7 +424,7 @@ A typical approach is to sample at larger ranges (more than 10 nanometers) and u
 
 \subsection{Advantages}
 
-The spectral rendering presents the ability to reproduce the colors in a more photorealistic way. We might not see it at first, but the colors produced by a conventional RGB renderer tend to be slightly over-saturated as they do not account for the spectral characteristics of the light which might attenuate the final color. A comparison between the RGB and the spectral render of the same scene by Mitsuba2 is shown in \autoref{fig:compare_color}.
+Spectral rendering has the ability to reproduce the colors in a more photorealistic way. We might not see it at first, but the colors produced by a conventional RGB renderer tend to be slightly over-saturated as they do not account for the spectral characteristics of light. A comparison between the RGB and the spectral render of the same scene by Mitsuba2 is shown in \autoref{fig:compare_color}.
 
 \begin{figure}[httpb]
 	\begin{tabular}{cc}
@@ -436,7 +436,7 @@ The spectral rendering presents the ability to reproduce the colors in a more ph
 	\label{fig:compare_color}
 \end{figure}
 
-Still, the biggest advantage is the possibility to reproduce some of the natural phenomena for which the tracing of multiple wavelengths is an absolute necessity. Namely, those are:
+Still, the biggest advantage is the possibility to reproduce some of the natural phenomena for which the tracing of multiple wavelengths is an absolute necessity. Namely, these are:
 \begin{description}
 	\item[Fluorescence] Absorption and re-emission of a different color
 	\item[Dispersion] Splitting of the white light into its wavelength components via refraction
@@ -447,12 +447,12 @@ They are explained in detail in \autoref{chap:appearance}.
 
 \subsection{Disadvantages}
 
-On the other side, the need to numerically integrate over multiple wavelengths introduces a problem of the chromatic noise. Fortunately, this has been effectively eliminated by the introduction of \emph{Hero Wavelength Spectral sampling}~\cite{wilkie2014hero}. Also, even though the performance is not a key factor, it worsens as well. 
+On the other side, the need to numerically integrate over multiple wavelengths introduces a problem of chromatic noise. Fortunately, this has been effectively eliminated by the introduction of \emph{Hero Wavelength Spectral sampling}~\cite{wilkie2014hero}. Also, even though the performance is not a key factor, it worsens as well. 
 
-Moreover, we assume that spectral images will not ever be properly displayable on the screens. Even the most modern monitors use a color space that is still smaller than the gamut of human-perceived colors. The only viable way is to store the distinct spectral bands as separate images. But, it is quite inconvenient to have multiple results instead of one as it does not correlate with the images that we capture in reality. Therefore, the rendering needs to have a well-done spectrum to final RGB conversion as the final image is still being displayed on an RGB monitor. Fortunately, the conversion is well-defined and fairly simple to implement.
+Moreover, we assume that spectral images will never be properly displayable on screens. Even the most modern monitors use a color space that is still smaller than the gamut of human-perceived colors. The only viable way is to store the distinct spectral bands as separate images. However, it is quite inconvenient to have multiple results instead of one as it does not correlate with the images that we capture in reality. Therefore, as the final image is still being displayed on an RGB monitor, the rendering needs to have a correct spectrum to final RGB conversion. Fortunately, the conversion is well-defined and fairly simple to implement.
 
-Since the RGB gamut is only a subset of the visible spectrum, the situation gets significantly more complicated for the reversed conversion. As there exist infinitely many spectra for one RGB value, several techniques were proposed to convert the tristimulus to the spectral domain --- commonly called the \emph{spectral upsampling}. For those who may be interested in the details of the current development to the spectral upsampling, refer to the article by \citet{jakob2019low} which proposes a solution that is capable of converting full sRGB gamut with zero error.
+Since the RGB gamut is only a subset of the visible spectrum, the situation gets significantly more complicated for the reversed conversion. As there exist infinitely many spectra for one RGB value, several techniques were proposed to convert the tristimulus to the spectral domain --- commonly called \emph{spectral upsampling}. For those who may be interested in the details of the current development of spectral upsampling, refer to the article by \citet{jakob2019low}, which proposes a solution that is capable of converting full sRGB gamut with zero error.
 
 It is also possible to simply map RGB values to their measured data. However, this requires a lot of manual work as the same "color" (reflective spectrum) might have to be measured for various lighting conditions and mapped accordingly.
 
-There exist several reasons to integrate the spectral upsampling, mainly because the spectral values are a lot harder to obtain and to use. You need a specific device (spectrometer) that would measure the color values under a specific light and then use regularly distributed samples from it as an input. Because of the reproducibility of the RGB color space and its legacy usage (lots of existing textures are already defined in RGB), it is a lot more convenient to input the values of textures as RGB values, convert them internally to the spectral domain, and convert them back to the desired color space for the output image.
+There exist several reasons to integrate spectral upsampling, mainly because the spectral values are a lot harder to obtain and to use. A specific device, called spectrometer, is used to measure the color values under a specific light. Because of the reproducibility of the RGB color space and its legacy usage (lots of existing textures are already defined in RGB), it is convenient to input the values of textures as RGB values, convert them internally to the spectral domain, and convert them back to the desired color space for the output image.
