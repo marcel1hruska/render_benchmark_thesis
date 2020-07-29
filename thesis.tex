@@ -183,19 +183,13 @@ The user may clone/download the benchmark from the github repository \url{https:
 
 Firstly, it is necessary to modify \texttt{settings.json} file in the root directory of the benchmark suite --- the user must specify the path to the renderer executable and the name of the renderer (currently, the only viable options are \texttt{mitsuba2} and \texttt{ART}).
 
-After that, the benchmark can be run with a simple invocation of the \\ \texttt{benchmark.py} python file. Note that the script must be invoked from within the root directory of the benchmark suite! For example, you can do so by issuing the following commands inside Ubuntu bash:
-
-\begin{lstlisting}
-cd /render_benchmark
-python3 ./benchmark.py
-\end{lstlisting}
-
+After that, the benchmark can be run with a simple invocation of the \\ \texttt{benchmark.py} python file. 
 The benchmark accepts several parameters:
 \begin{description}
 	\item[-{}-help (-h)] Prints the help message
 	\item[-{}-scene (-s) \textless scene\_name\textgreater] Test only the scene called scene\_name
 	\item[-{}-case (-c) \textless test\_case\_name\textgreater] Test only the test case called test\_case\_name
-	\item[-{}-renderer (-r) [ART/mitsuba2]] Specify the name of the renderer 
+	\item[-{}-renderer (-r) \{ART\(|\)mitsuba2\}] Specify the name of the renderer 
 	\item[-{}-exec (-e) \textless path\textgreater] Specify the path to the renderer executable
 	\item[-{}-log (-l)] Write all outputs to the log file (in the outputs folder) instead of the console
 	\item[-{}-visualize (-v)] Visualize the outputs immediately after the benchmark ends
@@ -203,9 +197,9 @@ The benchmark accepts several parameters:
 
 For the user's convenience, all of these options may be specified in the \\ \texttt{settings.json} file but the ones issued in the CLI take higher priority and override them.
 
-As soon as the benchmark ends, the user may find the rendered EXR images in a folder named \texttt{outputs-yyymmdd-hhmmss} where the \texttt{yyymmdd-hhmmss} is substituted for the date and the time when the command was issued.
+As soon as the benchmark ends, the user may find the rendered EXR images in a folder named \texttt{outputs-yyymmdd-hhmmss} where \texttt{yyymmdd-hhmmss} is substituted for the date and the time when the command was issued.
 
-Then, the user may invoke a second script, \texttt{visualize.py}, that opens a website with the results of the last benchmark run along with the reference images and their difference images. This script must also be run from within the root directory of the benchmark suite. It accepts only two parameters:
+Then, the user may invoke a second script, \texttt{visualize.py}, that opens a website with the results of the last benchmark run along with the reference images and their difference images.
 
 \begin{description}
 	\item[-{}-help (-h)] Prints the help message
