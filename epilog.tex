@@ -1,7 +1,9 @@
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
 
-Both ART and Mitsuba2 display several unique properties and implementation details such us custom spectral sampling techniques. Despite that, we've shown that it is possible to methodically test the appearance computations of the distinct renderers. As the models behind each of the tested phenomenon are properly defined and we can also describe their natural behavior, it is possible to expose some of the exact aspects of their computations (e.g Brewster's angle in polarization) and to evaluate their functionality.
+Both ART and Mitsuba2 display several unique properties and implementation details such us custom spectral sampling techniques. Despite that, we have shown that it is possible to methodically test the appearance computations of the distinct renderers. As the models behind each of the tested phenomenon are properly defined and we can also describe their natural behavior, it is possible to expose some of the exact aspects of their computations and to evaluate their functionality.
+
+We have successfully created evaluation scenes that focus on polarization, GGX reflectance, iridescence, fluorescence and overall spectral accuracy. Each of these scenarios contain a very small number of scenes that can be rendered in a short amount of time while they, to our best knowledge, demonstrate all essential aspects of specific features. Unfortunately, due to its unverified implementation, dispersion had to be omitted and left for future work.
 
 The straightforward descriptions of the scenes, their basic geometry along with the in-depth documentation should be enough to comprehend their purposes in the evaluation process. As an addition, the benchmark contains code snippets, unified geometry and spectral values for various colors that are used in the scenes which should help a potential user to extend the benchmark or their own rendering systems coherently and correctly.
 
@@ -13,7 +15,7 @@ Despite the various functionalities that the benchmark has, there are several po
 
 \begin{description}
 	\item[Enhanced results] Right now, the results visualizer consists of a very basic UI where the user may look at the images and interact with them. We would like to add several features, e.g. performance counter, comments explaining each scene, highlights of the scene, etc.
-	\item[Dispersion] As the dispersion is the only phenomenon that we've talked about but haven't evaluated, it would be appropriate to add it to the benchmark as soon as the implementation for Mitsuba2 and/or ART is fully functional.
+	\item[Dispersion] As the dispersion is the only phenomenon that we have talked about but have not evaluated, it would be appropriate to add it to the benchmark as soon as the implementation for Mitsuba2 and/or ART is fully functional.
 	\item[More renderers] The addition of multiple renderers heavily depends on the supported features of the specific renderer and the interest of its developers. However, if we find a renderer that supports at least a majority of the features that we evaluate, we would gladly include it in the renderer.
 	\item[Common scene format] Including more renderers would be significantly simplified by describing the scenes in a common scene format (e.g. Universal Scene Description by~\citet{usdDoc}). This approach would, of course, need a conversion tool from the universal format to the renderer-specific one.
 \end{description}

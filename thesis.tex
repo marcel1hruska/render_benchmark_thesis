@@ -99,25 +99,10 @@ I want to thank my girlfriend, my family and my friends for their constant suppo
 
 % Abstract (recommended length around 80-200 words; this is not a copy of your thesis assignment!)
 \def\Abstract{%
-Many techniques for the computation of realistic images exist, and there are a number of key technical aspects to
-such systems. In addition to the light transport technique which is being used, the details of how description and
-computation of object appearance are key distinguishing features. The details in questions span a wide range of
-features, such as the list of BRDF and BSSDF models which are supported in a given system, to the question
-whether computations are performed in color space or in spectral form, to whether features such polarization or
-fluorescence are being supported. Although there are obvious similarities between systems, there is no standardized
-implementation of any of these features, and their computation might vary in terms of accuracy.
+Due to constant development in computer graphics, various complex rendering techniques offer different approaches to the same aspects of the image synthesis process. Not only the global illumination algorithms, but also appearance descriptions are key distinguishing factors between the rendering systems. These descriptions might include BRDF models, support for spectral color representation but also integration of advanced phenomena such as fluorescence. Unfortunately, as there are no standardized implementations of these features, their computations might not be completely accurate which may result in their incorrect representation.
 
-Currently, whenever a researcher works on any aspect of appearance computation, they demonstrate their findings
-on their own set of test scenes. These scenes might not necessarily cover all test scenarios, and any possible
-inaccuracies might not be exposed properly.
-
-So there is a need for an appearance test suite that would assess the correctness of such computations. The goal of
-this thesis is to introduce such a set of scenes that can be used to methodically test rendering algorithms based on
-their appearance reproduction capabilities. The test scenes are created in such a manner that they examine the
-capabilities of the appearance computations to correctly render respective features, while neglecting other aspects
-of rendering, such as global illumination. With the appearance in mind, we focus on spectral rendering in general,
-as well as specialized forms of it, such as fluorescence, dispersion or polarization. For various test cases, we
-manually verify that the reference images display proper results according to the definition of respective features.
+The aim of this thesis was to introduce an evaluation suite that would methodically test rendering algorithms based on
+their appearance reproduction capabilities. The core of the suite is a set of scenes which test five specific appearance phenomena --- polarization, GGX reflectance, fluorescence, iridescence and the overall spectral accuracy. Each test case scenario contains as few scenes as possible while maximizes the number of covered aspects of the specific feature. For the user's convenience, we wrap the scenes inside an automatic workflow that runs the specified test case scenarios and displays the results along with the reference images and their difference images. The reference images are considered to be the ground truth and we manually verified that they are correct, accordingly to their model definitions.
 }
 
 % 3 to 5 keywords (recommended), each enclosed in curly braces

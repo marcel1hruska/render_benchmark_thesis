@@ -1,11 +1,11 @@
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
-Since ancient times, we've been observing and studying nature, trying to comprehend its behavior. Common phenomena such as rainbows or light reflections have always been one of the primary topics discussed in the scientific circles which, once they were properly explained, led to the formulations of their descriptions.
+Since ancient times, we have been observing and studying nature, trying to comprehend its behavior. Common phenomena such as rainbows or light reflections have always been one of the primary topics discussed in the scientific circles which, once they were properly explained, led to the formulations of their descriptions.
 
 In the modern era of computers, many of these phenomena are well-defined and can be accurately represented by physical models. One of the ultimate interests of the computer graphics is to replicate these sensations, creating realistic images that would be indistinguishable from a photograph.
 
-Although the publications discussing the rendering process were released mostly in the second half of the 19th century~\cite{kajiya1986rendering}\cite{nicodemus1965directional}, it is only now that we are capable of computing certain specific aspects of the natural light. Mostly thanks to the more powerful hardware, correctly simulating the light transport while evaluating non-trivial physical models can be done in a matter of minutes instead of days.
+Although the publications discussing the rendering process were released \\ mostly in the second half of the 19th century~\cite{kajiya1986rendering}\cite{nicodemus1965directional}, it is only now that we are capable of computing certain specific aspects of the natural light. Mostly thanks to the more powerful hardware, correctly simulating the light transport while evaluating non-trivial physical models can be done in a matter of minutes instead of days.
 
 In the past, the physical realism of the image synthesis was mostly present only in the research-oriented systems, while the commercial world was quite content with the approximations of the computations as they were aiming for a visually appealing images instead of realistic ones. As the interest in the physical realism rises also in the commercial circles, the more advanced light transport simulations are becoming a standard, opening possibilities to reproduce phenomena that were almost impossible before.
 
@@ -15,7 +15,7 @@ Unfortunately, these dissimilarities cause that there is no unified evaluation p
 
 \section*{Goals}
 
-The main goal of this thesis is to introduce a set of scenes that test various rendering systems based on their appearance reproduction capabilities. These scenes are specifically designed to expose potential differences between the computation of the specific phenomenon and its defined behavior in nature. While it is possible to test the light transport simulations, we focus on the specific visual sensations that are to this date being widely developed and discussed such as fluorescence, dispersion, or polarization. The spectral internal representation of light is an absolute necessity for most of the evaluated aspects so they may be simulated accordingly to their physical descriptions without any lossy conversions from the RGB domain.
+The main goal of this thesis is to introduce a set of scenes that test various rendering systems based on their appearance reproduction capabilities. These scenes are specifically designed to expose potential differences between the computation of the specific phenomenon and its defined behavior in nature. While it is possible to test the light transport simulations, we focus on the specific visual sensations that are to this date being widely developed and discussed, such as fluorescence, dispersion, and polarization. The spectral internal representation of light is an absolute necessity for most of the evaluated aspects so they may be simulated accordingly to their physical descriptions without any lossy conversions from the RGB domain.
 
 For the user's convenience, we wrap the test scenes in automated workflow and we provide the reference images that we consider to be the ground truth.
 
@@ -23,13 +23,13 @@ For the user's convenience, we wrap the test scenes in automated workflow and we
 
 This thesis is structured as follows: 
 
-\Cref{chap:render} introduces the reader to color science and computer graphics. It explains the fundamental basics of the rendering process that are a necessity to comprehend the more advanced computational models. It also defines the terminology that is widely used throughout the thesis. In case the reader is already familiar with the computer graphics field, he can skip this chapter. 
+\Cref{chap:render} introduces the reader to color science and computer graphics. It explains the fundamental basics of the rendering process for comprehension of more advanced computational models. It also defines the terminology that is widely used throughout the thesis. In case the reader is already familiar with the computer graphics field, he can skip this chapter. 
 
 \Cref{chap:appearance} continues in discussing the specific appearance phenomena that are the main interest of this thesis, providing in-depth explanations as well as exact implementations for each of them. 
 
-\Cref{chap:benchmark} shows the actual output of the thesis --- the evaluation suite. We describe the framework and justify its design by demonstrating possible use case scenarios. We also explain the methodology used to create each test scene accordingly to the phenomena they are supposed to evaluate.
+\Cref{chap:benchmark} shows the actual output of the thesis --- the evaluation suite. We describe the framework and justify its design by demonstrating possible use case scenarios. We also explain individual test scenes and the methodology that we used to add them.
 
 \Cref{chap:results} directly compares the computations and their results of two different renderers.
 
-A the end of the thesis, we provide a user guide which clarifies how to actually run and use the benchmark.
+A the end of the thesis, we provide a user guide which clarifies how to run and use the benchmark.
 

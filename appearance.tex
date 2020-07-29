@@ -1,7 +1,7 @@
 \chapter{Appearance Computations}
 \label{chap:appearance}
 
-So far, we've covered the fundamental basics of the light and the rendering process to be able to comprehend the more advanced techniques practiced in the computer graphics. As we've mentioned before, our primary goal is to evaluate the computational accuracy of several specific appearance sensations. Even though they are quite common in everyday life, their integration to the modern renderers is, to this date, rare.  In this chapter, we discuss these phenomena individually --- their manifestations in nature, the physics behind them, and finally their computations in the rendering process. 
+So far, we have covered the fundamental basics of the light and the rendering process to be able to comprehend the more advanced techniques practiced in the computer graphics. As we have mentioned before, our primary goal is to evaluate the computational accuracy of several specific appearance sensations. Even though they are quite common in everyday life, their integration to the modern renderers is, to this date, rare.  In this chapter, we discuss these phenomena individually --- their manifestations in nature, the physics behind them, and finally their computations in the rendering process. 
 
 \section{Reflectance}
 
@@ -140,7 +140,7 @@ In the simplest case of a dielectric plane, we distinguish two types of linearly
 \end{figure}
 
 
-The principle of Brewster's angle is used in a material called the \emph{linear polarizer}. As the name suggests, it polarizes the light, restricting its direction of oscillation accordingly to the specifics of the polarizer. If the light that passes through the polarizer is of the opposite (perpendicular) direction to the polarizer's transmission orientation, it won't let it through and no light is visible. \autoref{fig:polarizer} illustrates the effects of a polarizer.
+The principle of Brewster's angle is used in a material called the \emph{linear polarizer}. As the name suggests, it polarizes the light, restricting its direction of oscillation accordingly to the specifics of the polarizer. If the light that passes through the polarizer is of the opposite (perpendicular) direction to the polarizer's transmission orientation, it will not let it through and no light is visible. \autoref{fig:polarizer} illustrates the effects of a polarizer.
 
 \begin{figure}[h]
 	\centering
@@ -298,7 +298,7 @@ Please note that there is a difference between fluorescence, luminescence and ph
 \subsection{Fluorescence in rendering}
 As we are dealing with the wavelengths of a light spectrum, the appropriate decision is to extend the spectral rendering to include fluorescence. Once again, we refer the interested reader to the article by \citet{mojzik2018handling} for the implementation details as, for the purposes of this thesis,  we are only covering the fundamental ideas.
 
-As we've mentioned before, we are shifting the wavelengths of the absorbed spectrum to emit a new one --- this is called \emph{Stokes shift} (shown in \autoref{fig:stokes_shift}) and it can be described by \emph{fluorescence response} $\Phi(\lambda_i,\lambda_o)$.
+As we have mentioned before, we are shifting the wavelengths of the absorbed spectrum to emit a new one --- this is called \emph{Stokes shift} (shown in \autoref{fig:stokes_shift}) and it can be described by \emph{fluorescence response} $\Phi(\lambda_i,\lambda_o)$.
 
 \begin{figure}
 	\centering
