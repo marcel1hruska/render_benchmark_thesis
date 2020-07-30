@@ -99,15 +99,32 @@ I want to thank my girlfriend, my family and my friends for their constant suppo
 
 % Abstract (recommended length around 80-200 words; this is not a copy of your thesis assignment!)
 \def\Abstract{%
-Due to constant development in computer graphics, various complex rendering techniques offer different approaches to the same aspects of the image synthesis process. Not only the global illumination algorithms, but also appearance descriptions are key distinguishing factors between the rendering systems. These descriptions might include BRDF models, support for spectral color representation but also integration of advanced phenomena such as fluorescence. Unfortunately, as there are no standardized implementations of these features, their computations might not be completely accurate which may result in their incorrect representation.
+Various rendering techniques often use different approaches to the same
+aspects of the image synthesis process, mainly due to their complexity and
+constant development. Excluding global illumination algorithms, appearance
+descriptions are key distinguishing factors between the rendering systems.
+These descriptions might include BRDF models, support for spectral color
+representation, and even integration of advanced phenomena, such as fluorescence.
+Unfortunately, as there are no standardized implementations of these
+features, their computations might not be completely accurate, which may
+result in their incorrect representation.
 
-The aim of this thesis was to introduce an evaluation suite that would methodically test rendering algorithms based on
-their appearance reproduction capabilities. The core of the suite is a set of scenes which test five specific appearance phenomena --- polarization, GGX reflectance, fluorescence, iridescence and the overall spectral accuracy. Each test case scenario contains as few scenes as possible while maximizes the number of covered aspects of the specific feature. For the user's convenience, we wrap the scenes inside an automatic workflow that runs the specified test case scenarios and displays the results along with the reference images and their difference images. The reference images are considered to be the ground truth and we manually verified that they are correct, accordingly to their model definitions.
+This thesis describes an evaluation suite that methodically tests rendering
+algorithms based on their appearance reproduction capabilities. The core of
+the suite is a set of scenes that test five specific appearance phenomena
+— polarization, GGX reflectance, fluorescence, iridescence and the overall
+spectral accuracy. Each test case scenario contains as few scenes as possible
+while maximizing the number of covered aspects of the tested feature. For
+the user’s convenience, we wrap the scenes inside an automatic workflow that
+runs the specified test case scenarios and displays the results. As a correctness
+metric, we provide manually verified reference images that are considered to
+be the ground truth. The user may compare the benchmark results with the
+reference images by, for example, observing provided error maps.
 }
 
 % 3 to 5 keywords (recommended), each enclosed in curly braces
 \def\Keywords{%
-{appearance},{evaluation},{spectral rendering},{iridescence},{polarization},\\{fluorescence}
+{appearance evaluation},{rendering evaluation},{spectral rendering}
 }
 
 %% The hyperref package for clickable links in PDF and also for storing
@@ -166,28 +183,26 @@ their appearance reproduction capabilities. The core of the suite is a set of sc
 \label{user_guide}
 The user may clone/download the benchmark from the github repository \url{https://github.com/marcel1hruska/render_benchmark} or he can find it in the attachments of thesis~\ref{sec:benchmark}. As the whole benchmark is written in Python3, there is no need to compile the project. 
 
-Firstly, it is necessary to modify \texttt{settings.json} file in the root directory of the benchmark suite --- the user must specify the path to the renderer executable and the name of the renderer (currently, the only viable options are \texttt{mitsuba2} and \texttt{ART}).
-
-After that, the benchmark can be run with a simple invocation of the \\ \texttt{benchmark.py} python file. 
-The benchmark accepts several parameters:
+The benchmark can be run with a simple invocation of the \\ \texttt{benchmark.py} python file. 
+It accepts the following parameters:
 \begin{description}
-	\item[-{}-help (-h)] Prints the help message
+	\item[-{}-help (-h)] Print the help message
 	\item[-{}-scene (-s) \textless scene\_name\textgreater] Test only the scene called scene\_name
 	\item[-{}-case (-c) \textless test\_case\_name\textgreater] Test only the test case called test\_case\_name
 	\item[-{}-renderer (-r) \{ART\(|\)mitsuba2\}] Specify the name of the renderer 
 	\item[-{}-exec (-e) \textless path\textgreater] Specify the path to the renderer executable
-	\item[-{}-log (-l)] Write all outputs to the log file (in the outputs folder) instead of the console
+	\item[-{}-log (-l)] Write all outputs to the log file located in the outputs folder instead of the console
 	\item[-{}-visualize (-v)] Visualize the outputs immediately after the benchmark ends
 \end{description}
 
-For the user's convenience, all of these options may be specified in the \\ \texttt{settings.json} file but the ones issued in the CLI take higher priority and override them.
+For the user's convenience, all of these options may be specified as JSON in the \texttt{settings.json} file, located in the root directory. Note that the ones issued in the CLI take higher priority and override them.
 
-As soon as the benchmark ends, the user may find the rendered EXR images in a folder named \texttt{outputs-yyymmdd-hhmmss} where \texttt{yyymmdd-hhmmss} is substituted for the date and the time when the command was issued.
+As soon as the benchmark ends, the user may find the rendered EXR images in a folder named \texttt{outputs-yyymmdd-hhmmss}, where \texttt{yyymmdd-hhmmss} is substituted for the date and the time when the command was issued.
 
-Then, the user may invoke a second script, \texttt{visualize.py}, that opens a website with the results of the last benchmark run along with the reference images and their difference images.
+Then, the user may invoke a second script, \texttt{visualize.py}, that opens a website with the results of the last benchmark run along with the reference images and their difference images. It accepts the following parameters:
 
 \begin{description}
-	\item[-{}-help (-h)] Prints the help message
+	\item[-{}-help (-h)] Print the help message
 	\item[-{}-outputs (-o) \textless output\_folder\_name\textgreater] Specify the name of the\\ \texttt{outputs-yyymmdd-hhmmss} folder that is to be visualized. If omitted, the latest folder is picked.
 \end{description}
 
@@ -199,19 +214,19 @@ All attachments are listed below and can be found in the \texttt{attachments} fo
 \section{Benchmark}
 \label{sec:benchmark}
 
-Contains the whole testing suite, can also be downloaded from \url{https://github.com/marcel1hruska/render_benchmark}. If the user downloaded the thesis from github, he needs to do so recursively as the \texttt{render\_benchmark} is a submodule.
+The \texttt{render\_benchmark} folder contains the whole testing suite. It can also be downloaded from \url{https://github.com/marcel1hruska/render_benchmark}. If the user downloaded the thesis from github, he needs to do so recursively as the \texttt{render\_benchmark} is a submodule.
 
 \section{Iridescence for Mitsuba2}
 \label{sec:mitsuba2_irid}
 
-Contains the iridescence implementation for Mitsuba2. The folder can be simply copied over the Mitsuba2 code version 2.1.0. Note that only the \texttt{iridescence.h} and \texttt{iridescence.cpp} files contain our code --- the rest of the code mostly belongs to Mitsuba2 and only small parts that activate the iridescent effects were created by us. 
+The \texttt{Iridescence\_Mitsuba2} folder contains the iridescence implementation for Mitsuba2. To add the functionality, replace the code of Mitsuba2 version 2.1.0 by the contents of this folder. Note that only the  \texttt{iridescence.h} and \\ \texttt{iridescence.cpp} files contain our code --- the rest of the code mostly belongs to Mitsuba2 and only small parts that activate the iridescent effects were created by us. 
 
-To make matters more simple, we created a forked repository on \url{https://github.com/marcel1hruska/mitsuba2}. The user needs to checkout the \\ \texttt{iridescence} branch and compile it accordingly to the Mitsuba2 documentation~\cite{mitsubaWeb}.
+To make matters more simple, we created a forked repository on \url{https://github.com/marcel1hruska/mitsuba2}. The user needs to checkout the \\ \texttt{iridescence} branch and compile it according to the Mitsuba2 \\ documentation~\cite{mitsubaWeb}.
 
 \section{GGX for ART}
 \label{sec:ggx_art}
 
-Contains the GGX implementation for ART. The folder can be simply copied over the ART code version 2.0.3. Note that the files also include the implementation of the Blinn microfacet distribution which belongs to ART and is not a part of this thesis. 
+The \texttt{GGX\_ART} folder contains the GGX implementation for ART. To add the functionality, replace the code of ART version 2.0.3 by the contents of this folder. Note that the files also include the implementation of the Blinn microfacet distribution which belongs to ART and is not a part of this thesis. 
 
 Unfortunately, we do not have a fork of the repository as the origin is not on github.
 

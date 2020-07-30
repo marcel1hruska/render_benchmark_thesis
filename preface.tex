@@ -1,35 +1,35 @@
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
-Since ancient times, we have been observing and studying nature, trying to comprehend its behavior. Common phenomena such as rainbows or light reflections have always been one of the primary topics discussed in the scientific circles which, once they were properly explained, led to the formulations of their descriptions.
+Studies of nature have always been an important part of human history. Common phenomena such as rainbows or light reflections have been one of the primary topics discussed in the scientific circles which, once they were properly explained, led to the formulations of their descriptions.
 
 In the modern era of computers, many of these phenomena are well-defined and can be accurately represented by physical models. One of the ultimate interests of the computer graphics is to replicate these sensations, creating realistic images that would be indistinguishable from a photograph.
 
-Although the publications discussing the rendering process were released \\ mostly in the second half of the 19th century~\cite{kajiya1986rendering}\cite{nicodemus1965directional}, it is only now that we are capable of computing certain specific aspects of the natural light. Mostly thanks to the more powerful hardware, correctly simulating the light transport while evaluating non-trivial physical models can be done in a matter of minutes instead of days.
+Although the publications discussing the rendering process were released \\ mostly in the second half of the 19th century~\cite{kajiya1986rendering}\cite{nicodemus1965directional}, it is only now that we are capable of computing certain specific aspects of the natural light. Mostly thanks to more powerful hardware, correctly simulating the light transport while evaluating non-trivial appearance models can be done in a matter of minutes.
 
-In the past, the physical realism of the image synthesis was mostly present only in the research-oriented systems, while the commercial world was quite content with the approximations of the computations as they were aiming for a visually appealing images instead of realistic ones. As the interest in the physical realism rises also in the commercial circles, the more advanced light transport simulations are becoming a standard, opening possibilities to reproduce phenomena that were almost impossible before.
+In the past, the physical realism of image synthesis was mostly present in research-oriented systems only. The commercial world used to approximate the computations, as they were aiming for visually appealing images instead of realistic ones. Recently, the interest in physical realism has also been rising in the entertainment industries and more advanced light transport simulations are becoming a standard, opening possibilities to reproduce appearances more accurately.
 
-However, as the newly-developed techniques are still being largely discussed, various rendering systems contain custom, sometimes even distinct, implementations. In addition to the light transport techniques, there are many other distinguishing key features, such as material models or the internal light representation. Even though large parts of the rendering systems present obvious similarities, there is no standardized implementation of any of these features and so their computations may vary in terms of accuracy.
+However, as many rendering techniques are constantly being improved, various rendering systems contain custom, sometimes even distinct, implementations. In addition to light transport techniques, there are many other distinguishing key features, such as material models or the internal light representation. Even though large parts of the rendering systems present obvious similarities, there is no standardized implementation of any of these features and so their computations may vary in terms of accuracy.
 
-Unfortunately, these dissimilarities cause that there is no unified evaluation process that would assess the correctness of a specific technique or the whole rendering system. In fact, whenever an improved or a completely new technique is introduced, the creators present their results on their own set of scenes. Even involuntarily, these scenes might not properly exercise the techniques, possibly leaving some inaccuracies unexposed. Therefore, there is a need for a standardized way to test the rendering systems and their features. We provide a solution that methodically evaluates the computations of several exotic appearance phenomena, creating a base for a general rendering benchmark.
+Unfortunately, due to these dissimilarities, there is no unified evaluation process that would assess the correctness of a specific technique or the whole rendering system. In fact, whenever an improved or a completely new technique is introduced, the creators present their results on their own set of scenes. Even involuntarily, these scenes might not properly exercise the techniques, possibly leaving some inaccuracies unexposed. Therefore, there is a need for a standardized way to test the rendering systems and their features. We provide a solution that methodically evaluates the computations of several appearance phenomena.
 
 \section*{Goals}
 
-The main goal of this thesis is to introduce a set of scenes that test various rendering systems based on their appearance reproduction capabilities. These scenes are specifically designed to expose potential differences between the computation of the specific phenomenon and its defined behavior in nature. While it is possible to test the light transport simulations, we focus on the specific visual sensations that are to this date being widely developed and discussed, such as fluorescence, dispersion, and polarization. The spectral internal representation of light is an absolute necessity for most of the evaluated aspects so they may be simulated accordingly to their physical descriptions without any lossy conversions from the RGB domain.
+The main goal of this thesis is to introduce a set of scenes that test various rendering systems based on their appearance reproduction capabilities. These scenes are specifically designed to expose potential differences between the computation of the specific phenomenon and its defined behavior in nature. While it is possible to test the light transport simulations, we focus on the specific visual sensations that are, to this date, being developed and discussed, such as fluorescence, dispersion, and polarization. As we desire to simulate these evaluated phenomena according to their physical descriptions and without any lossy conversions from the RGB domain, the spectral internal representation of light is an absolute necessity.
 
-For the user's convenience, we wrap the test scenes in automated workflow and we provide the reference images that we consider to be the ground truth.
+For the user's convenience, we wrap the test scenes in an automated workflow and we provide the reference images that we consider to be the ground truth.
 
 \section*{Thesis organization}
 
 This thesis is structured as follows: 
 
-\Cref{chap:render} introduces the reader to color science and computer graphics. It explains the fundamental basics of the rendering process for comprehension of more advanced computational models. It also defines the terminology that is widely used throughout the thesis. In case the reader is already familiar with the computer graphics field, he can skip this chapter. 
+\Cref{chap:render} introduces the reader to color science and computer graphics. It explains the fundamental basics of the rendering process to comprehend more advanced computational models that are discussed later. It also defines the terminology that is widely used throughout the thesis.
 
 \Cref{chap:appearance} continues in discussing the specific appearance phenomena that are the main interest of this thesis, providing in-depth explanations as well as exact implementations for each of them. 
 
 \Cref{chap:benchmark} shows the actual output of the thesis --- the evaluation suite. We describe the framework and justify its design by demonstrating possible use case scenarios. We also explain individual test scenes and the methodology that we used to add them.
 
-\Cref{chap:results} directly compares the computations and their results of two different renderers.
+\Cref{chap:results} directly compares two different renderers based on their computation implementations using the results from the benchmark.
 
-A the end of the thesis, we provide a user guide which clarifies how to run and use the benchmark.
+At the end of the thesis, we provide a user guide which clarifies how to run and use the benchmark.
 
